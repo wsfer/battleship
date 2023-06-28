@@ -173,3 +173,17 @@ describe('Ship moving tests', () => {
         expect(move.isValid).toBeFalsy;
     });
 });
+
+test('Generate a random fleet', () => {
+    const builder = new FleetBuilder();
+
+    const moves = builder.generateRandomFleet();
+
+    moves.forEach((shipMove) => {
+        shipMove.newPositions.forEach(([x, y]) => {
+            expect(builder.fleet[x][y]).toBe(shipMove.target);
+        });
+    });
+    // To see the board:
+    // console.table(builder.fleet)
+});

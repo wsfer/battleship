@@ -215,6 +215,47 @@ class FleetBuilder {
             .map(([x, y]) => this.fleet[x][y] === 'water')
             .includes(false);
     }
+
+    generateRandomFleet() {
+        // First clear everything
+        this.fleet = Array(10)
+            .fill()
+            .map(() => Array(10).fill('water'));
+
+        this.validSpaces = Array(10)
+            .fill()
+            .map(() => Array(10).fill(true));
+
+        [...this.ships.values()].forEach((ship) => (ship.positions = null));
+
+        const ships = [...this.ships.keys()];
+        const moves = [];
+        while (ships.length > 0) {
+            const ship = ships.pop();
+
+            // Get a random available coord
+            const coords = this.validSpaces.map((row, x) =>
+                row.map((col, y) => (col ? [x, y] : false))
+            );
+
+            const randomRow = coords[
+                Math.floor(Math.random() * coords.length)
+            ].filter((coord) => coord);
+
+            const coord =
+                randomRow[Math.floor(Math.random() * randomRow.length)];
+
+            // Try moving the ship there
+            const move = this.move(ship, coord);
+            if (move.isValid) {
+                moves.push(move);
+            } else {
+                ships.push(ship);
+            }
+        }
+
+        return moves;
+    }
 }
 
 export default FleetBuilder;
