@@ -1,189 +1,158 @@
 import FleetBuilder from './fleetBuilder';
 
-describe('Test methods', () => {
-    let builder;
+let builder;
 
-    beforeEach(() => {
-        builder = new FleetBuilder();
-        builder.move('destroyer', [0, 0]);
+beforeEach(() => {
+    builder = new FleetBuilder();
+});
+
+test('Move a ship to a valid coord in horizontal direction', () => {
+    const move = builder.move('destroyer', [0, 0]);
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: true,
+        target: 'destroyer',
+        size: 2,
+        direction: 'horizontal',
+        newPositions: [
+            [0, 0],
+            [0, 1],
+        ],
     });
+    expect([fleet[0][0], fleet[0][1]]).toEqual(['destroyer', 'destroyer']);
+});
 
-    test('Get future ship coords of a move', () => {
-        const shipMock = jest
-            .fn()
-            .mockReturnValueOnce({
-                length: 3,
-                direction: 'vertical',
-            })
-            .mockReturnValue({
-                length: 2,
-                direction: 'horizontal',
-            });
-
-        expect(builder.getFutureCoords(shipMock(), [0, 0])).toEqual({
-            main: [
-                [0, 0],
-                [1, 0],
-                [2, 0],
-            ],
-            border: [
-                [0, 1],
-                [1, 1],
-                [2, 1],
-                [3, 0],
-                [3, 1],
-            ],
-        });
-
-        expect(builder.getFutureCoords(shipMock(), [5, 4])).toEqual({
-            main: [
-                [5, 4],
-                [5, 5],
-            ],
-            border: [
-                [4, 3],
-                [4, 4],
-                [4, 5],
-                [4, 6],
-                [5, 3],
-                [5, 6],
-                [6, 3],
-                [6, 4],
-                [6, 5],
-                [6, 6],
-            ],
-        });
-    });
-
-    test('Check if a set of coords is a valid move', () => {
-        const coordsMock = jest
-            .fn()
-            .mockReturnValueOnce([
-                [0, 0],
-                [1, 0],
-                [2, 0],
-            ])
-            .mockReturnValueOnce([
-                [9, 9],
-                [9, 10],
-            ])
-            .mockReturnValueOnce([
-                [1, 2],
-                [1, 3],
-            ])
-            .mockReturnValueOnce([
-                [3, 4],
-                [4, 4],
-            ])
-            .mockReturnValue([
-                [0, 0],
-                [0, 1],
-            ]);
-
-        // There's a destroyer on [0, 0][0, 1]
-        expect(builder.isValidMove(coordsMock())).toBeFalsy;
-
-        // Out board
-        expect(builder.isValidMove(coordsMock())).toBeFalsy;
-
-        // Close to destroyer on [0, 0][0, 1]
-        expect(builder.isValidMove(coordsMock())).toBeFalsy;
-
-        expect(builder.isValidMove(coordsMock())).toBeTruthy;
-        expect(builder.isValidMove(coordsMock())).toBeTruthy;
+test('Change direction of a unplaced ship', () => {
+    const move = builder.changeDirection('destroyer');
+    expect(move).toEqual({
+        isValid: true,
+        target: 'destroyer',
+        size: 2,
+        direction: 'vertical',
+        newPositions: null,
     });
 });
 
-describe('Ship moving tests', () => {
-    let builder;
-
-    beforeEach(() => {
-        builder = new FleetBuilder();
+test('Move a ship to a valid coord in vertical direction', () => {
+    builder.changeDirection('destroyer');
+    const move = builder.move('destroyer', [5, 4]);
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: true,
+        target: 'destroyer',
+        size: 2,
+        direction: 'vertical',
+        newPositions: [
+            [5, 4],
+            [6, 4],
+        ],
     });
-
-    test('Valid coord - horizontal', () => {
-        const move = builder.move('destroyer', [0, 0]);
-        expect(builder.fleet[0][0]).toBe('destroyer');
-        expect(builder.fleet[0][1]).toBe('destroyer');
-        expect(move).toEqual({
-            isValid: true,
-            target: 'destroyer',
-            direction: 'horizontal',
-            newPositions: [
-                [0, 0],
-                [0, 1],
-            ],
-        });
-    });
-
-    test('Valid coord - vertical', () => {
-        builder.changeDirection('destroyer');
-        const move = builder.move('destroyer', [5, 4]);
-        expect(builder.fleet[5][4]).toBe('destroyer');
-        expect(builder.fleet[6][4]).toBe('destroyer');
-        expect(move.isValid).toBeTruthy;
-    });
-
-    test('Move a ship to another position', () => {
-        builder.move('destroyer', [0, 0]);
-        const move = builder.move('destroyer', [2, 2]);
-        expect(builder.fleet[0][0]).toBe('water');
-        expect(builder.fleet[0][1]).toBe('water');
-        expect(builder.fleet[2][2]).toBe('destroyer');
-        expect(builder.fleet[2][3]).toBe('destroyer');
-        expect(move.isValid).toBeTruthy;
-    });
-
-    test('Change direction to valid position', () => {
-        builder.move('destroyer', [0, 0]);
-        const move = builder.changeDirection('destroyer');
-        expect(builder.fleet[0][0]).toBe('destroyer');
-        expect(builder.fleet[1][0]).toBe('destroyer');
-        expect(builder.fleet[0][1]).toBe('water');
-        expect(move.isValid).toBeTruthy;
-    });
-
-    test('Change direction to invalid position - ship must be removed', () => {
-        builder.move('destroyer', [9, 8]);
-        const move = builder.changeDirection('destroyer');
-        expect(builder.fleet[9][8]).toBe('water');
-        expect(builder.fleet[9][9]).toBe('water');
-        expect(move.isValid).toBeFalsy;
-    });
-
-    test('Invalid coord - go off-board', () => {
-        const move = builder.move('destroyer', [0, 9]);
-        expect(builder.fleet[0][9]).toBe('water');
-        expect(move.isValid).toBeFalsy;
-    });
-
-    test('Invalid coord - already occupied', () => {
-        builder.move('carrier', [0, 0]);
-        const move = builder.move('destroyer', [0, 1]);
-        expect(builder.fleet[0][1]).toBe('carrier');
-        expect(builder.fleet[0][2]).toBe('carrier');
-        expect(move.isValid).toBeFalsy;
-    });
-
-    test('Invalid coord - next to another ship', () => {
-        builder.move('carrier', [0, 0]);
-        const move = builder.move('destroyer', [1, 1]);
-        expect(builder.fleet[1][1]).toBe('water');
-        expect(builder.fleet[1][2]).toBe('water');
-        expect(move.isValid).toBeFalsy;
-    });
+    expect([fleet[5][4], fleet[6][4]]).toEqual(['destroyer', 'destroyer']);
 });
 
+test('Move a ship from one position to another', () => {
+    builder.move('destroyer', [0, 0]);
+    const move2 = builder.move('destroyer', [4, 4]);
+    const fleet = builder.getFleet();
+    expect(move2).toEqual({
+        isValid: true,
+        target: 'destroyer',
+        size: 2,
+        direction: 'horizontal',
+        newPositions: [
+            [4, 4],
+            [4, 5],
+        ],
+    });
+    expect([fleet[0][0], fleet[0][1]]).toEqual(['water', 'water']);
+    expect([fleet[4][4], fleet[4][5]]).toEqual(['destroyer', 'destroyer']);
+});
+
+test('Change direction of placed ship - valid case', () => {
+    builder.move('destroyer', [0, 0]);
+    const move = builder.changeDirection('destroyer');
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: true,
+        target: 'destroyer',
+        size: 2,
+        direction: 'vertical',
+        newPositions: [
+            [0, 0],
+            [1, 0],
+        ],
+    });
+    expect(fleet[0][1]).toBe('water');
+    expect([fleet[0][0], fleet[1][0]]).toEqual(['destroyer', 'destroyer']);
+});
+
+test('Change direction of placed ship - invalid case', () => {
+    builder.move('destroyer', [9, 8]);
+    const move = builder.changeDirection('destroyer');
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: false,
+        target: 'destroyer',
+        size: 2,
+        direction: 'vertical',
+        newPositions: null,
+    });
+    expect([fleet[9][8], fleet[9][9]]).toEqual(['water', 'water']);
+});
+
+test('Move ship to invalid coord which go off-board', () => {
+    const move = builder.move('carrier', [0, 9]);
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: false,
+        target: 'carrier',
+        size: 5,
+        direction: 'horizontal',
+        newPositions: null,
+    });
+    expect(fleet[0][9]).toBe('water');
+});
+
+test('Move ship to already occupied coord', () => {
+    builder.move('submarine', [0, 0]);
+    const move = builder.move('destroyer', [0, 1]);
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: false,
+        target: 'destroyer',
+        size: 2,
+        direction: 'horizontal',
+        newPositions: null,
+    });
+    expect([fleet[0][1], fleet[0][2]]).toEqual(['submarine', 'submarine']);
+});
+
+test('Move ship to invalid coord next to another ship', () => {
+    builder.move('carrier', [0, 0]);
+    const move = builder.move('destroyer', [1, 1]);
+    const fleet = builder.getFleet();
+    expect(move).toEqual({
+        isValid: false,
+        target: 'destroyer',
+        size: 2,
+        direction: 'horizontal',
+        newPositions: null,
+    });
+    expect([fleet[1][1], fleet[1][2]]).toEqual(['water', 'water']);
+});
+
+// This one is hard to test because everything is random.
+// needs a more complex function to check if placed ships are in valid positions
+//
+// To see the fleet: console.table(fleet)
 test('Generate a random fleet', () => {
-    const builder = new FleetBuilder();
-
     const moves = builder.generateRandomFleet();
+    const fleet = builder.getFleet();
 
-    moves.forEach((shipMove) => {
-        shipMove.newPositions.forEach(([x, y]) => {
-            expect(builder.fleet[x][y]).toBe(shipMove.target);
+    moves.forEach((move) => {
+        expect(move.isValid).toBeTruthy;
+        move.newPositions.forEach(([x, y]) => {
+            expect(fleet[x][y]).toBe(move.target);
         });
     });
-    // To see the board:
-    // console.table(builder.fleet)
 });
