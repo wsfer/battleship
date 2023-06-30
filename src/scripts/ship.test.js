@@ -2,8 +2,7 @@ import Ship from './ship';
 
 test('Create a ship', () => {
     const ship = new Ship(3, 'submarine');
-
-    expect(ship.length).toBe(3);
+    expect(ship.size).toBe(3);
     expect(ship.health).toBe(3);
     expect(ship.isSunk()).toBeFalsy;
 });
@@ -11,12 +10,11 @@ test('Create a ship', () => {
 test('Hit a ship', () => {
     const ship = new Ship(3, 'cruiser');
     const attack = ship.hit();
-
     expect(ship.health).toBe(2);
     expect(ship.isSunk()).toBeFalsy;
     expect(attack).toEqual({
         target: 'cruiser',
-        length: 3,
+        size: 3,
         health: 2,
     });
 });
@@ -24,12 +22,11 @@ test('Hit a ship', () => {
 test('Sunken a ship', () => {
     const ship = new Ship(1, 'ship');
     const attack = ship.hit();
-
     expect(ship.health).toBe(0);
     expect(ship.isSunk()).toBeTruthy;
     expect(attack).toEqual({
         target: 'ship',
-        length: 1,
+        size: 1,
         health: 0,
     });
 });
@@ -37,12 +34,11 @@ test('Sunken a ship', () => {
 test('Create a sunken ship', () => {
     const ship = new Ship(0, 'sunken');
     const attack = ship.hit();
-
     expect(ship.health).toBe(0);
     expect(ship.isSunk()).toBeTruthy;
     expect(attack).toEqual({
         target: 'sunken',
-        length: 0,
+        size: 0,
         health: 0,
     });
 });

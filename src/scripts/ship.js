@@ -1,19 +1,26 @@
 class Ship {
-    #length;
+    #size;
+
     #health;
-    #type;
-    constructor(length, type) {
-        this.#length = length;
-        this.#health = length;
-        this.#type = type;
+
+    #name;
+
+    constructor(size, name) {
+        this.#size = size;
+        this.#health = size;
+        this.#name = name;
     }
 
-    get length() {
-        return this.#length;
+    get size() {
+        return this.#size;
     }
 
     get health() {
         return this.#health;
+    }
+
+    get name() {
+        return this.#name;
     }
 
     hit() {
@@ -22,8 +29,8 @@ class Ship {
         }
 
         return {
-            target: this.#type,
-            length: this.#length,
+            target: this.#name,
+            size: this.#size,
             health: this.#health,
         };
     }
