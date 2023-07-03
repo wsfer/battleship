@@ -54,7 +54,8 @@ class ComputerAI {
             [Cx, Cy + 1],
             [Cx - 1, Cy],
         ].filter(
-            ([x, y]) => x >= 0 && x < 10 && y >= 0 && y < 10 && coords[x][y]
+            ([x, y]) =>
+                x >= 0 && x < 10 && y >= 0 && y < 10 && coords[x][y] !== null
         );
         return adjacents[Math.floor(Math.random() * adjacents.length)];
     }
@@ -68,7 +69,7 @@ class ComputerAI {
             edges = [
                 [coordX, Math.min(...allY) - 1],
                 [coordX, Math.max(...allY) + 1],
-            ].filter(([x, y]) => coords[x][y] !== null);
+            ].filter(([x, y]) => y >= 0 && y < 10 && coords[x][y] !== null);
         }
 
         if (direction === 'vertical') {
@@ -77,7 +78,7 @@ class ComputerAI {
             edges = [
                 [Math.min(...allX) - 1, coordY],
                 [Math.max(...allX) + 1, coordY],
-            ].filter(([x, y]) => coords[x][y] !== null);
+            ].filter(([x, y]) => x >= 0 && x < 10 && coords[x][y] !== null);
         }
         return edges[Math.floor(Math.random() * edges.length)];
     }
