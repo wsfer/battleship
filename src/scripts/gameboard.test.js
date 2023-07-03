@@ -31,7 +31,13 @@ beforeEach(() => {
 test('Attack water', () => {
     const attack = gameboard.receiveAttack([2, 1]);
     const fleet = gameboard.getFleet();
-    expect(attack).toEqual({ target: 'Water' });
+    expect(attack).toEqual({
+        target: 'Water',
+        x: 2,
+        y: 1,
+        isShip: false,
+        gameover: false,
+    });
 });
 
 test('Attack a ship', () => {
@@ -40,8 +46,11 @@ test('Attack a ship', () => {
     expect(fleet[0][2]).toBe('Sunken ship');
     expect(attack).toEqual({
         target: 'Destroyer',
+        x: 0,
+        y: 2,
         size: 2,
         health: 1,
+        isShip: true,
         gameover: false,
     });
 });
@@ -51,7 +60,13 @@ test('Attack a sunken ship', () => {
     const attack = gameboard.receiveAttack([0, 2]);
     const fleet = gameboard.getFleet();
     expect(fleet[0][2]).toBe('Sunken ship');
-    expect(attack).toEqual({ target: 'Sunken ship' });
+    expect(attack).toEqual({
+        target: 'Sunken ship',
+        x: 0,
+        y: 2,
+        isShip: false,
+        gameover: false,
+    });
 });
 
 test('Sunken a single ship', () => {
@@ -62,8 +77,11 @@ test('Sunken a single ship', () => {
     expect(fleet[1][2]).toBe('Sunken ship');
     expect(lastAttack).toEqual({
         target: 'Destroyer',
+        x: 1,
+        y: 2,
         size: 2,
         health: 0,
+        isShip: true,
         gameover: false,
     });
 });

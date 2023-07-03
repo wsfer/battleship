@@ -32,6 +32,9 @@ class Gameboard {
             this.#fleet[x][y] = this.#objects.get('sunken');
             return {
                 ...hit,
+                x,
+                y,
+                isShip: true,
                 gameover: target.isSunk() ? this.#isGameOver() : false,
             };
         }
@@ -39,6 +42,10 @@ class Gameboard {
         // When target is water or sunken ship
         return {
             target: hit.target,
+            x,
+            y,
+            isShip: false,
+            gameover: false,
         };
     }
 
