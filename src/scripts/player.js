@@ -1,15 +1,30 @@
 class Player {
-    #fleet;
-    constructor(fleet) {
-        this.#fleet = fleet;
+    #name;
+
+    #gameboard;
+
+    #isComputer;
+
+    constructor(name, gameboard) {
+        this.#name = name;
+        this.#gameboard = gameboard;
+        this.#isComputer = false;
     }
 
-    receiveAttack(coords) {
-        return this.#fleet.receiveAttack(coords);
+    get name() {
+        return this.#name;
     }
 
-    attack(opponent, coords) {
-        return opponent.receiveAttack(coords);
+    get isComputer() {
+        return this.#isComputer;
+    }
+
+    receiveAttack([x, y]) {
+        return this.#gameboard.receiveAttack([x, y]);
+    }
+
+    attack(player, coords) {
+        return player.receiveAttack(coords);
     }
 }
 
