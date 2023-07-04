@@ -101,7 +101,7 @@ class FleetBuilder {
         ].filter(([x, y]) => x >= 0 && x < 10 && y >= 0 && y < 10);
 
         for (const [x, y] of closeCoords) {
-            if (!this.#fleet[x][y] === 'water') return true;
+            if (this.#fleet[x][y] !== 'water') return true;
         }
         return false;
     }
@@ -266,7 +266,7 @@ class FleetBuilder {
 
     // Returns true if all ships have positions
     isDone() {
-        const ships = [...this.ships.values()];
+        const ships = [...this.#ships.values()];
         return ships.filter((position) => position).length === ships.length;
     }
 

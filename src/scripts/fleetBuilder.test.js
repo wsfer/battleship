@@ -141,6 +141,19 @@ test('Move ship to invalid coord next to another ship', () => {
     expect([fleet[1][1], fleet[1][2]]).toEqual(['water', 'water']);
 });
 
+test('Moving a close ship right next to another ship is invalid', () => {
+    builder.move('destroyer', [6, 3]);
+    builder.move('submarine', [8, 3]);
+    const move = builder.move('submarine', [7, 3]);
+    expect(move).toEqual({
+        isValid: false,
+        target: 'submarine',
+        size: 3,
+        direction: 'horizontal',
+        newPositions: null,
+    });
+});
+
 // This one is hard to test because everything is random.
 // needs a more complex function to check if placed ships are in valid positions
 //
@@ -155,4 +168,6 @@ test('Generate a random fleet', () => {
             expect(fleet[x][y]).toBe(move.target);
         });
     });
+
+    expect(builder.isDone()).toBeTruthy;
 });
