@@ -41,7 +41,7 @@ class DOMCreator {
         let board = '';
 
         for (let i = 0; i < 100; i++) {
-            board += `<div class="js-square" data-x="${Math.floor(
+            board += `<div class="square js-square" data-x="${Math.floor(
                 i / 10
             )}" data-y="${i % 10}"></div>`;
         }
