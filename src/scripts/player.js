@@ -23,7 +23,7 @@ class Player {
         return this.#gameboard.receiveAttack([x, y]);
     }
 
-    attack(player, coords) {
+    async attack(player, coords) {
         return player.receiveAttack(coords);
     }
 }

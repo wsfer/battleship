@@ -4,43 +4,42 @@ import FleetBuilder from './fleetBuilder';
 
 class DOMRender {
     static renderStartPage(music) {
-        document.body.textContent = '';
         const page = DOMCreator.createStartPage();
         EventCreator.addStartPageEvents(page, music);
 
+        page.querySelector('.js-reset-game').addEventListener('click', () => {
+            this.renderStartPage(music);
+        });
         page.querySelector('.js-new-game').addEventListener('click', () => {
-            this.renderFleetPage(music);
+            this.renderFleetPage();
         });
 
+        document.body.textContent = '';
         document.body.appendChild(page);
     }
 
-    static renderFleetPage = (music) => {
-        document.body.textContent = '';
-        const fleetBuilder = new FleetBuilder();
+    static renderFleetPage = () => {
+        const playerFleet = new FleetBuilder();
         const page = DOMCreator.createFleetPage();
-        EventCreator.addFleetPageEvents(page, music, fleetBuilder);
+        EventCreator.addFleetPageEvents(page, playerFleet);
 
-        page.querySelector('.js-reset-game').addEventListener('click', () => {
-            this.renderStartPage(music);
-        });
         page.querySelector('.js-start-game').addEventListener('click', () => {
-            this.renderGamePage(music, fleetBuilder);
+            if (playerFleet.isDone()) {
+                const computerFleet = new FleetBuilder();
+                computerFleet.generateRandomFleet();
+                this.renderGamePage(playerFleet, computerFleet);
+            }
         });
 
-        document.body.appendChild(page);
+        document.querySelector('main').textContent = '';
+        document.querySelector('main').appendChild(page);
     };
 
-    static renderGamePage = (music, fleetBuilder) => {
-        document.body.textContent = '';
+    static renderGamePage = (playerFleet, computerFleet) => {
         const page = DOMCreator.createGamePage();
-        EventCreator.addGamePageEvents(page, music);
-
-        page.querySelector('.js-reset-game').addEventListener('click', () => {
-            this.renderStartPage(music);
-        });
-
-        document.body.appendChild(page);
+        EventCreator.addGamePageEvents(page, playerFleet, computerFleet);
+        document.querySelector('main').textContent = '';
+        document.querySelector('main').appendChild(page);
     };
 }
 

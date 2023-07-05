@@ -21,12 +21,14 @@ class ComputerPlayer extends Player {
         this.#targetShip = null;
     }
 
-    attack(player) {
-        const coords = ComputerAI.generateMove(this.#coords, this.#targetShip);
+    async attack(player) {
+        const coords = await ComputerAI.generateMove(
+            this.#coords,
+            this.#targetShip
+        );
         const attack = player.receiveAttack(coords);
 
         this.#coords[attack.x][attack.y] = null;
-
         if (attack.isShip) {
             // First case: found a newly ship
             // Second case: destroyed target ship
@@ -36,7 +38,7 @@ class ComputerPlayer extends Player {
                     direction: null,
                     positions: [[attack.x, attack.y]],
                 };
-            } else if (this.#targetShip.positions.length - 1 === attack.size) {
+            } else if (this.#targetShip.positions.length + 1 === attack.size) {
                 this.#targetShip = null;
             } else {
                 const [shipX] = this.#targetShip.positions;

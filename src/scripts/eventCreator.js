@@ -1,3 +1,7 @@
+import GameController from './gameController';
+import Gameboard from './gameboard';
+import Player from './player';
+import ComputerPlayer from './computerPlayer';
 /**
  * Add events liteners to page related to game loop
  */
@@ -9,12 +13,7 @@ class EventCreator {
         });
     }
 
-    static addFleetPageEvents(page, music, fleetBuilder) {
-        page.querySelector('.js-sound').addEventListener('click', (e) => {
-            e.target.classList.toggle('on');
-            music.muted = !music.muted;
-        });
-
+    static addFleetPageEvents(page, fleetBuilder) {
         let selectedShip = null;
         const selectedShipText = page.querySelector('.js-selected-ship');
         const ships = page.querySelectorAll('.js-ship');
@@ -125,6 +124,64 @@ class EventCreator {
                 if (move.isValid) {
                     e.target.appendChild(ship);
                 }
+            }
+        });
+    }
+
+    static addGamePageEvents(page, playerFleetBuilder, computerFleetBuilder) {
+        const playerBoard = new Gameboard(playerFleetBuilder.getFleet());
+        const computerBoard = new Gameboard(computerFleetBuilder.getFleet());
+        const player = new Player('Player', playerBoard);
+        const computer = new ComputerPlayer('Computer', computerBoard);
+        const game = new GameController(player, computer);
+
+        const combatLog = page.querySelector('.js-combat-log');
+        const currentPlayer = page.querySelector('.js-player-name-turn');
+        const computerFleet = page.querySelector('.js-computer-fleet');
+        const playerSquares = page.querySelectorAll(
+            '.js-player-fleet > .js-square'
+        );
+
+        const explosion = new Audio();
+        const splash = new Audio();
+
+        computerFleet.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('js-square')) {
+                computerFleet.classList.toggle('disabled');
+
+                const [x, y] = [
+                    Number(e.target.dataset.x),
+                    Number(e.target.dataset.y),
+                ];
+                const playerTurn = await game.play([x, y]);
+                combatLog.textContent = `${playerTurn.attacker} attacked ${playerTurn.defender}'s ${playerTurn.target}`;
+                currentPlayer.textContent = playerTurn.defender;
+
+                if (playerTurn.isShip) {
+                    e.target.classList.add('sunken');
+                    explosion.play();
+                } else {
+                    e.target.classList.add('water');
+                    splash.play();
+                }
+
+                const computerTurn = await game.play(null);
+                combatLog.textContent = `${computerTurn.attacker} attacked ${computerTurn.defender}'s ${computerTurn.target}`;
+                currentPlayer.textContent = computerTurn.defender;
+
+                if (computerTurn.isShip) {
+                    playerSquares[
+                        computerTurn.x * 10 + computerTurn.y
+                    ].classList.add('sunken');
+                    explosion.play();
+                } else {
+                    playerSquares[
+                        computerTurn.x * 10 + computerTurn.y
+                    ].classList.add('water');
+                    splash.play();
+                }
+
+                computerFleet.classList.toggle('disabled');
             }
         });
     }

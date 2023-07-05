@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+.fleet {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 30rem;
+    height: 30rem;
+
+    > .square {
+        width: 3rem;
+        height: 3rem;
+        &.water {
+            background-color: blue;
+        }
+
+        &.sunken {
+            background-color: brown;
+        }
+    }
+}
+
+.ship {
+    position: relative;
+}
