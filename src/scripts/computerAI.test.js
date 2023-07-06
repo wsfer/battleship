@@ -221,3 +221,27 @@ describe('Ship has direction', () => {
         expect(move).toEqual(expectedMove);
     });
 });
+
+test('Fully discovered rows around a ship', async () => {
+    const coords = Array(10)
+        .fill()
+        .map((row, x) =>
+            Array(10)
+                .fill()
+                .map((col, y) => (x === 7 ? [x, y] : null))
+        );
+    coords[7][4] = null;
+    const ship = {
+        direction: null,
+        positions: [[7, 4]],
+    };
+    const expectedMoves = [
+        [7, 5],
+        [7, 3],
+    ];
+    for (let i = 0; i < 2; i++) {
+        const move = await ComputerAI.generateMove(coords, ship);
+        expect(expectedMoves).toContainEqual(move);
+        coords[move[0]][move[1]] = null;
+    }
+});

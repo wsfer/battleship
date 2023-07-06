@@ -1,13 +1,11 @@
 class ComputerAI {
     static async generateMove(availableCoords, targetingShip) {
-        const coords = this.#filterUnavailableRows(availableCoords);
-
         // No ship being targeted: return a random coord
         if (targetingShip === null) {
             // await new Promise((resolve) => {
             //     setTimeout(resolve, Math.random() * 1000);
             // });
-            return this.#getRandomCoord(coords);
+            return this.#getRandomCoord(availableCoords);
         }
 
         // Ship has only one discovered position: return one valid random adjacent coord
@@ -18,7 +16,7 @@ class ComputerAI {
             //     setTimeout(resolve, Math.random() * 1000);
             // });
 
-            return this.#getRandomAdjacentCoord(coords, position);
+            return this.#getRandomAdjacentCoord(availableCoords, position);
         }
 
         // Ship has a discovered direction
@@ -27,27 +25,23 @@ class ComputerAI {
         // });
 
         return this.#getRandomEdgeCoord(
-            coords,
+            availableCoords,
             targetingShip.direction,
             targetingShip.positions
         );
     }
 
-    // This method removes all rows full of null values, which could generate an error
-    static #filterUnavailableRows(availableCoords) {
-        return availableCoords.filter(
+    static #getRandomCoord(availableCoords) {
+        const coords = availableCoords.filter(
             (row) => row.filter((col) => col).length > 0
         );
-    }
-
-    static #getRandomCoord(coords) {
         const randomRow = coords[
             Math.floor(Math.random() * coords.length)
         ].filter((coord) => coord !== null);
         return randomRow[Math.floor(Math.random() * randomRow.length)];
     }
 
-    static #getRandomAdjacentCoord(coords, [Cx, Cy]) {
+    static #getRandomAdjacentCoord(availableCoords, [Cx, Cy]) {
         const adjacents = [
             [Cx + 1, Cy],
             [Cx, Cy - 1],
@@ -55,12 +49,16 @@ class ComputerAI {
             [Cx - 1, Cy],
         ].filter(
             ([x, y]) =>
-                x >= 0 && x < 10 && y >= 0 && y < 10 && coords[x][y] !== null
+                x >= 0 &&
+                x < 10 &&
+                y >= 0 &&
+                y < 10 &&
+                availableCoords[x][y] !== null
         );
         return adjacents[Math.floor(Math.random() * adjacents.length)];
     }
 
-    static #getRandomEdgeCoord(coords, direction, positions) {
+    static #getRandomEdgeCoord(availableCoords, direction, positions) {
         let edges;
 
         if (direction === 'horizontal') {
@@ -69,7 +67,9 @@ class ComputerAI {
             edges = [
                 [coordX, Math.min(...allY) - 1],
                 [coordX, Math.max(...allY) + 1],
-            ].filter(([x, y]) => y >= 0 && y < 10 && coords[x][y] !== null);
+            ].filter(
+                ([x, y]) => y >= 0 && y < 10 && availableCoords[x][y] !== null
+            );
         }
 
         if (direction === 'vertical') {
@@ -78,7 +78,9 @@ class ComputerAI {
             edges = [
                 [Math.min(...allX) - 1, coordY],
                 [Math.max(...allX) + 1, coordY],
-            ].filter(([x, y]) => x >= 0 && x < 10 && coords[x][y] !== null);
+            ].filter(
+                ([x, y]) => x >= 0 && x < 10 && availableCoords[x][y] !== null
+            );
         }
         return edges[Math.floor(Math.random() * edges.length)];
     }

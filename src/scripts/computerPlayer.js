@@ -1,14 +1,15 @@
 import Player from './player';
-import ComputerAI from './computerAI';
 
 class ComputerPlayer extends Player {
     #isComputer;
+
+    #computerAI;
 
     #coords;
 
     #targetShip;
 
-    constructor(name, gameboard) {
+    constructor(name, gameboard, computerAI) {
         super(name, gameboard);
         this.#isComputer = true;
         this.#coords = Array(10)
@@ -19,16 +20,19 @@ class ComputerPlayer extends Player {
                     .map((col, y) => [x, y])
             );
         this.#targetShip = null;
+        this.#computerAI = computerAI;
     }
 
     async attack(player) {
-        const coords = await ComputerAI.generateMove(
+        const coords = await this.#computerAI.generateMove(
             this.#coords,
             this.#targetShip
         );
+
         const attack = player.receiveAttack(coords);
 
         this.#coords[attack.x][attack.y] = null;
+
         if (attack.isShip) {
             // First case: found a newly ship
             // Second case: destroyed target ship
@@ -41,10 +45,10 @@ class ComputerPlayer extends Player {
             } else if (this.#targetShip.positions.length + 1 === attack.size) {
                 this.#targetShip = null;
             } else {
-                const [shipX] = this.#targetShip.positions;
+                const [shipCoordX] = this.#targetShip.positions[0];
                 this.#targetShip.positions.push([attack.x, attack.y]);
                 this.#targetShip.direction =
-                    attack.x === shipX ? 'horizontal' : 'vertical';
+                    attack.x === shipCoordX ? 'horizontal' : 'vertical';
             }
         }
 
