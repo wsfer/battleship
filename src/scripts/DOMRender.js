@@ -3,44 +3,74 @@ import EventCreator from './eventCreator';
 import FleetBuilder from './fleetBuilder';
 
 class DOMRender {
-    static renderStartPage(music) {
-        const page = DOMCreator.createStartPage();
-        EventCreator.addStartPageEvents(page, music);
+    // Called once per page load
+    static renderPage(music) {
+        const page = DOMCreator.createPage();
 
         page.querySelector('.js-reset-game').addEventListener('click', () => {
-            this.renderStartPage(music);
+            this.renderStartPage();
         });
-        page.querySelector('.js-new-game').addEventListener('click', () => {
-            this.renderFleetPage();
+        page.querySelector('.js-sound').addEventListener('click', (e) => {
+            e.target.classList.toggle('on');
+            music.muted = !music.muted;
         });
 
-        document.body.textContent = '';
         document.body.appendChild(page);
     }
 
-    static renderFleetPage = () => {
+    static renderStartScreen() {
+        const page = DOMCreator.createStartScreen();
+
+        page.querySelector('.js-new-game').addEventListener('click', () => {
+            this.renderFleetScreen();
+        });
+
+        document.querySelector('main').textContent = '';
+        document.querySelector('main').appendChild(page);
+    }
+
+    static renderFleetScreen() {
         const playerFleet = new FleetBuilder();
-        const page = DOMCreator.createFleetPage();
-        EventCreator.addFleetPageEvents(page, playerFleet);
+        const page = DOMCreator.createFleetScreen();
+        EventCreator.addFleetScreenEvents(page, playerFleet);
 
         page.querySelector('.js-start-game').addEventListener('click', () => {
             if (playerFleet.isDone()) {
                 const computerFleet = new FleetBuilder();
                 computerFleet.generateRandomFleet();
-                this.renderGamePage(playerFleet, computerFleet);
+                this.renderGameScreen(playerFleet, computerFleet);
             }
         });
 
         document.querySelector('main').textContent = '';
         document.querySelector('main').appendChild(page);
-    };
+    }
 
-    static renderGamePage = (playerFleet, computerFleet) => {
-        const page = DOMCreator.createGamePage();
-        EventCreator.addGamePageEvents(page, playerFleet, computerFleet);
+    static renderGameScreen(playerFleet, computerFleet) {
+        const page = DOMCreator.createGameScreen();
+        EventCreator.addGameScreenEvents(
+            page,
+            playerFleet,
+            computerFleet,
+            this.renderGameOverBox
+        );
         document.querySelector('main').textContent = '';
         document.querySelector('main').appendChild(page);
-    };
+    }
+
+    static renderGameOverBox(winner) {
+        const screen = DOMCreator.createGameOverScreen(winner);
+
+        screen.querySelector('.js-restart').addEventListener('click', () => {
+            this.renderStartScreen();
+            document.body.classList.toggle('popup');
+            const box = document.querySelector('.js-popup-box');
+            document.body.removeChild(box);
+        });
+
+        document.body.classList.toggle('popup');
+        document.body.appendChild(screen);
+    }
 }
 
 export default DOMRender;

@@ -5,4 +5,5 @@ const music = new Audio();
 music.autoplay = true;
 music.loop = true;
 
-DOMRender.renderStartPage(music);
+DOMRender.renderPage(music);
+DOMRender.renderStartScreen();

@@ -6,14 +6,7 @@ import ComputerPlayer from './computerPlayer';
  * Add events liteners to page related to game loop
  */
 class EventCreator {
-    static addStartPageEvents(page, music) {
-        page.querySelector('.js-sound').addEventListener('click', (e) => {
-            e.target.classList.toggle('on');
-            music.muted = !music.muted;
-        });
-    }
-
-    static addFleetPageEvents(page, fleetBuilder) {
+    static addFleetScreenEvents(page, fleetBuilder) {
         let selectedShip = null;
         const selectedShipText = page.querySelector('.js-selected-ship');
         const ships = page.querySelectorAll('.js-ship');
@@ -128,7 +121,12 @@ class EventCreator {
         });
     }
 
-    static addGamePageEvents(page, playerFleetBuilder, computerFleetBuilder) {
+    static addGameScreenEvents(
+        page,
+        playerFleetBuilder,
+        computerFleetBuilder,
+        gameOver
+    ) {
         const playerBoard = new Gameboard(playerFleetBuilder.getFleet());
         const computerBoard = new Gameboard(computerFleetBuilder.getFleet());
         const player = new Player('Player', playerBoard);
@@ -165,6 +163,11 @@ class EventCreator {
                     splash.play();
                 }
 
+                if (playerTurn.gameover) {
+                    gameOver('Player');
+                    return;
+                }
+
                 const computerTurn = await game.play(null);
                 combatLog.textContent = `${computerTurn.attacker} attacked ${computerTurn.defender}'s ${computerTurn.target}`;
                 currentPlayer.textContent = computerTurn.defender;
@@ -179,6 +182,11 @@ class EventCreator {
                         computerTurn.x * 10 + computerTurn.y
                     ].classList.add('water');
                     splash.play();
+                }
+
+                if (playerTurn.gameover) {
+                    gameOver('Computer');
+                    return;
                 }
 
                 computerFleet.classList.toggle('disabled');
