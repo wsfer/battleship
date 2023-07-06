@@ -1,10 +1,4 @@
-import GameController from './gameController';
-import Gameboard from './gameboard';
-import Player from './player';
-import ComputerPlayer from './computerPlayer';
-/**
- * Add events liteners to page related to game loop
- */
+// Add events liteners related to game loop
 class EventCreator {
     static addFleetScreenEvents(page, fleetBuilder) {
         let selectedShip = null;
@@ -121,27 +115,14 @@ class EventCreator {
         });
     }
 
-    static addGameScreenEvents(
-        page,
-        playerFleetBuilder,
-        computerFleetBuilder,
-        gameOver
-    ) {
-        const playerBoard = new Gameboard(playerFleetBuilder.getFleet());
-        const computerBoard = new Gameboard(computerFleetBuilder.getFleet());
-        const player = new Player('Player', playerBoard);
-        const computer = new ComputerPlayer('Computer', computerBoard);
-        const game = new GameController(player, computer);
-
+    static addGameScreenEvents(page, game, audio) {
         const combatLog = page.querySelector('.js-combat-log');
         const currentPlayer = page.querySelector('.js-player-name-turn');
         const computerFleet = page.querySelector('.js-computer-fleet');
         const playerSquares = page.querySelectorAll(
             '.js-player-fleet > .js-square'
         );
-
-        const explosion = new Audio();
-        const splash = new Audio();
+        const winnerName = page.querySelector('.js-winner');
 
         computerFleet.addEventListener('click', async (e) => {
             if (e.target.classList.contains('js-square')) {
@@ -157,14 +138,15 @@ class EventCreator {
 
                 if (playerTurn.isShip) {
                     e.target.classList.add('sunken');
-                    explosion.play();
+                    audio.playExplosion();
                 } else {
                     e.target.classList.add('water');
-                    splash.play();
+                    audio.playSplash();
                 }
 
                 if (playerTurn.gameover) {
-                    gameOver('Player');
+                    document.body.classList.toggle('gameover');
+                    winnerName.textContent = playerTurn.attacker;
                     return;
                 }
 
@@ -176,16 +158,17 @@ class EventCreator {
                     playerSquares[
                         computerTurn.x * 10 + computerTurn.y
                     ].classList.add('sunken');
-                    explosion.play();
+                    audio.playExplosion();
                 } else {
                     playerSquares[
                         computerTurn.x * 10 + computerTurn.y
                     ].classList.add('water');
-                    splash.play();
+                    audio.playSplash();
                 }
 
-                if (playerTurn.gameover) {
-                    gameOver('Computer');
+                if (computerTurn.gameover) {
+                    document.body.classList.toggle('gameover');
+                    winnerName.textContent = computerTurn.attacker;
                     return;
                 }
 

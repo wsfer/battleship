@@ -152,14 +152,9 @@ class DOMCreator {
                 </section>
             </section>
             <p class="js-combat-log">Attack!</p>
-        `);
-    }
-
-    static createGameOverScreen(winner) {
-        return new Range().createContextualFragment(`
-            <section class="js-popup-box">
-                <h3>${winner} won the game</h3>
-                <button class="js-restart">Play again</button>
+            <section class="js-gameover-box">
+                <h3><span class="js-winner"></span> won the game</h3>
+                <button class="js-restart-game">Play again</button>
             </section>
         `);
     }
