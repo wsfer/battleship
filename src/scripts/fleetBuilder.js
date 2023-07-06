@@ -236,9 +236,10 @@ class FleetBuilder {
             const ship = ships.pop();
 
             // Creates a matrix of available coords, if it's unavailable set it to false
-            const coords = this.#validSpaces.map((row, x) =>
-                row.map((col, y) => (col ? [x, y] : false))
-            );
+            // Also filter rows which have only false values
+            const coords = this.#validSpaces
+                .map((row, x) => row.map((col, y) => (col ? [x, y] : false)))
+                .filter((row) => row.filter((col) => col).length > 0);
 
             // Select a random row from the matrix before and filter all available coords
             const randomRow = coords[
