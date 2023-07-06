@@ -138,6 +138,15 @@ class EventCreator {
 
                 if (playerTurn.isShip) {
                     e.target.classList.add('sunken');
+
+                    document.querySelector(
+                        `.js-computer-${playerTurn.target.toLowerCase()}`
+                    ).style.backgroundImage = `linear-gradient(to left, red 0 ${Math.round(
+                        (playerTurn.health / playerTurn.size) * 100
+                    )}%, white ${Math.round(
+                        (playerTurn.health / playerTurn.size) * 100
+                    )}% 100%)`;
+
                     audio.playExplosion();
                 } else {
                     e.target.classList.add('water');
@@ -158,6 +167,15 @@ class EventCreator {
                     playerSquares[
                         computerTurn.x * 10 + computerTurn.y
                     ].classList.add('sunken');
+
+                    document.querySelector(
+                        `.js-player-${computerTurn.target.toLowerCase()}`
+                    ).style.backgroundImage = `linear-gradient(to right, red 0 ${Math.round(
+                        (computerTurn.health / computerTurn.size) * 100
+                    )}%, white ${Math.round(
+                        (computerTurn.health / computerTurn.size) * 100
+                    )}% 100%)`;
+
                     audio.playExplosion();
                 } else {
                     playerSquares[

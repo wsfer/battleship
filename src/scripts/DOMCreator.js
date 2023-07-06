@@ -115,12 +115,12 @@ class DOMCreator {
                 <section>
                     <h3><span>Player</span> fleet</h3>
                     <section>
-                        <section class="js-player-fleet-status">
-                            <div id="destroyer" class="js-ship-status"></div>
-                            <div id="submarine" class="js-ship-status"></div>
-                            <div id="cruiser" class="js-ship-status"></div>
-                            <div id="battleship" class="js-ship-status"></div>
-                            <div id="carrier" class="js-ship-status"></div>
+                        <section class="ship-status">
+                            <div class="js-player-destroyer"></div>
+                            <div class="js-player-submarine"></div>
+                            <div class="js-player-cruiser"></div>
+                            <div class="js-player-battleship"></div>
+                            <div class="js-player-carrier"></div>
                         </section>
                         <section class="gameboard">
                             <div class="x-coords"></div>
@@ -141,12 +141,12 @@ class DOMCreator {
                                 ${board}
                             </div>
                         </section>
-                        <section class="js-computer-fleet-status">
-                            <div id="destroyer" class="js-ship-status"></div>
-                            <div id="submarine" class="js-ship-status"></div>
-                            <div id="cruiser" class="js-ship-status"></div>
-                            <div id="battleship" class="js-ship-status"></div>
-                            <div id="carrier" class="js-ship-status"></div>
+                        <section class="ship-status">
+                            <div class="js-computer-destroyer"></div>
+                            <div class="js-computer-submarine"></div>
+                            <div class="js-computer-cruiser"></div>
+                            <div class="js-computer-battleship"></div>
+                            <div class="js-computer-carrier"></div>
                         </section>
                     </section>
                 </section>
