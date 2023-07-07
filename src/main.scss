@@ -1,7 +1,4 @@
-* {
-    box-sizing: border-box;
-    border: 1px solid red;
-}
+@use 'styles/base';
 
 .fleet {
     display: grid;
@@ -25,4 +22,10 @@
 
 .ship {
     position: relative;
+}
+
+.ship-status > div {
+    width: 150xp;
+    height: 50px;
+    background-image: linear-gradient(red 100%);
 }

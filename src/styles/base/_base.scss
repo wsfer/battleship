@@ -1,0 +1,20 @@
+@font-face {
+    font-family: righteous;
+    src: url('Righteous-Regular.ttf');
+}
+
+:root {
+    --background: rgb(13, 19, 33);
+    --secondary: rgb(222, 184, 65);
+    --font: rgb(217, 217, 217);
+    --light-opaque: rgba(217, 217, 217, 0.5);
+    --dark-opaque: rgba(16, 16, 16, 0.5);
+    --water: rgb(109, 157, 197);
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: var(--background);
+}
