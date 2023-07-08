@@ -1,7 +1,7 @@
+@use '../abstracts' as *;
+
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include center-content;
     flex-direction: column;
     padding: 2rem;
     gap: 1rem;

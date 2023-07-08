@@ -1,0 +1,15 @@
+@mixin center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin repeat-grid($rows: false, $columns: false) {
+    display: grid;
+    @if $rows {
+        grid-template-rows: repeat($rows, 1fr);
+    }
+    @if $columns {
+        grid-template-columns: repeat($columns, 1fr);
+    }
+}

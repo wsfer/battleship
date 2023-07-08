@@ -37,8 +37,8 @@ path {
 
 footer {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
@@ -167,9 +167,9 @@ main {
 }
 
 .x-coords {
-  grid-area: x-coords;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
+  grid-area: x-coords;
 }
 .x-coords > div {
   display: flex;
@@ -180,9 +180,9 @@ main {
 }
 
 .y-coords {
-  grid-area: y-coords;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
+  grid-area: y-coords;
 }
 .y-coords > div {
   display: flex;
@@ -193,10 +193,10 @@ main {
 }
 
 .fleet {
-  grid-area: fleet;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  grid-area: fleet;
   border: 2px solid var(--font);
 }
 .fleet > .square {
