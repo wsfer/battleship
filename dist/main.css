@@ -1,0 +1,222 @@
+/*!********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/main.scss ***!
+  \********************************************************************************************************/
+@font-face {
+  font-family: righteous;
+  src: url(fd0110471f2228c1808a.ttf);
+}
+:root {
+  --background: rgb(13, 19, 33);
+  --secondary: rgb(243, 215, 129);
+  --font: rgb(217, 217, 217);
+  --light-opaque: rgba(217, 217, 217, 0.5);
+  --dark-opaque: rgba(16, 16, 16, 0.5);
+  --water: rgb(109, 157, 197);
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background-color: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: righteous, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--font);
+  background: transparent;
+}
+
+path {
+  fill: inherit;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+.footer-links svg {
+  width: 2rem;
+  height: 2rem;
+  fill: var(--font);
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem;
+}
+header > button:first-child {
+  justify-self: left;
+  grid-column: 1;
+}
+header > button:last-child {
+  justify-self: right;
+  grid-column: 2;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sound-button svg:first-child {
+  display: none;
+}
+.sound-button.on > svg:first-child {
+  display: block;
+}
+.sound-button.on > svg:first-child + svg {
+  display: none;
+}
+
+.svg-button {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: fill 0.25s ease-in-out;
+  fill: var(--font);
+}
+.svg-button:hover {
+  fill: var(--secondary);
+}
+.svg-button:active {
+  fill: var(--light-opaque);
+}
+.svg-button:disabled {
+  fill: var(--light-opaque);
+  cursor: auto;
+}
+
+.text-button {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.25s ease-in-out;
+  color: var(--font);
+}
+.text-button:hover {
+  color: var(--secondary);
+}
+.text-button:active {
+  color: var(--light-opaque);
+}
+.text-button:disabled {
+  color: var(--light-opaque);
+  cursor: auto;
+}
+
+.solid-button {
+  color: var(--background);
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem 2.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+  background-color: var(--font);
+}
+.solid-button:hover {
+  background-color: var(--secondary);
+}
+.solid-button:active {
+  background-color: var(--light-opaque);
+}
+.solid-button:disabled {
+  background-color: var(--light-opaque);
+  cursor: auto;
+}
+
+.reset-button {
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.25s ease-in-out;
+  color: var(--font);
+}
+.reset-button:hover {
+  color: var(--secondary);
+}
+.reset-button:active {
+  color: var(--light-opaque);
+}
+.reset-button:disabled {
+  color: var(--light-opaque);
+  cursor: auto;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-areas: "    .    x-coords" "y-coords fleet ";
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 10fr;
+}
+
+.x-coords {
+  grid-area: x-coords;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+.x-coords > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+.y-coords {
+  grid-area: y-coords;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+}
+.y-coords > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+}
+
+.fleet {
+  grid-area: fleet;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border: 2px solid var(--font);
+}
+.fleet > .square {
+  border: 2px solid var(--font);
+  width: 3rem;
+  height: 3rem;
+}
+.fleet > .square.water {
+  background-color: var(--water);
+}
+.fleet > .square.sunken {
+  background-color: var(--secondary);
+}
+
+.ship {
+  position: relative;
+}
+
+.ship-status > div {
+  width: 150xp;
+  height: 50px;
+  background-image: linear-gradient(red 100%);
+}

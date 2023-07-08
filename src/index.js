@@ -12,6 +12,8 @@ import GameController from './scripts/gameController';
 const audio = new AudioController();
 
 const startGame = function initializePagesAndObjects() {
+    document.querySelector('.js-reset-game').style.display = 'none';
+
     const startScreen = DOMCreator.createStartScreen();
     const fleetScreen = DOMCreator.createFleetScreen();
     const gameScreen = DOMCreator.createGameScreen();
@@ -26,6 +28,7 @@ const startGame = function initializePagesAndObjects() {
 
     startScreen.querySelector('.js-new-game').addEventListener('click', () => {
         document.querySelector('main').textContent = '';
+        document.querySelector('.js-reset-game').style.display = 'block';
 
         // Initialize computer player
         computerFleet.generateRandomFleet();
