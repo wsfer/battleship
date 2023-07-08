@@ -64,7 +64,7 @@ const page = DOMCreator.createPage(audio);
 
 page.querySelector('.js-reset-game').addEventListener('click', startGame);
 page.querySelector('.js-sound').addEventListener('click', (e) => {
-    e.target.classList.toggle('on');
+    document.querySelector('.js-sound').classList.toggle('on');
     audio.toggle();
 });
 

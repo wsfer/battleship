@@ -1,0 +1,22 @@
+@use '../abstracts' as *;
+
+.sound-button {
+    width: 2rem;
+    height: 2rem;
+
+    @include svg-button-color(var(--font), var(--light-opaque), var(--secondary));
+
+    svg:first-child {
+        display: none;
+    }
+ 
+    &.on {
+        > svg:first-child {
+            display: block;
+        }
+
+        > svg:first-child + svg {
+            display: none;
+        }
+    }
+}
