@@ -1,10 +1,12 @@
-@mixin button-effects($prop, $normal, $hover, $active, $disabled) {
+@mixin button-effects($prop) {
     cursor: pointer;
-    #{$prop}: $normal;
-    &:hover { #{$prop}: $hover; }
-    &:active { #{$prop}: $active; }
+    transition: $prop 0.25s ease-in-out;
+    #{$prop}: var(--font);
+
+    &:hover { #{$prop}: var(--secondary); }
+    &:active { #{$prop}: var(--light-opaque); }
     &:disabled {
-        #{$prop}: $disabled;
+        #{$prop}: var(--light-opaque);
         cursor: auto;
     }
 }

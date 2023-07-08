@@ -20,25 +20,13 @@
     width: 2rem;
     height: 2rem;
 
-    @include button-effects(
-        $prop: fill,
-        $normal: var(--font),
-        $hover: var(--secondary),
-        $active: var(--light-opaque),
-        $disabled: var(--light-opaque)
-    );
+    @include button-effects($prop: fill);
 }
 
 .text-button {
     font-size: 1.5rem;
 
-    @include button-effects(
-        $prop: color,
-        $normal: var(--font),
-        $hover: var(--secondary),
-        $active: var(--light-opaque),
-        $disabled: var(--light-opaque)
-    );
+    @include button-effects($prop: color);
 }
 
 .solid-button {
@@ -48,11 +36,11 @@
     padding: 1rem 2.5rem;
     border-radius: 2rem;
 
-    @include button-effects(
-        $prop: background-color,
-        $normal: var(--font),
-        $hover: var(--secondary),
-        $active: var(--light-opaque),
-        $disabled: var(--light-opaque)
-    );
+    @include button-effects($prop: background-color);
+}
+
+.reset-button {
+    font-size: 1.8rem;
+    
+    @include button-effects($prop: color);
 }

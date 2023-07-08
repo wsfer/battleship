@@ -1,6 +1,15 @@
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: 2rem;
+
+    > button:first-child {
+        justify-self: left;
+        grid-column: 1;
+    }
+
+    > button:last-child {
+        justify-self: right;
+        grid-column: 2;
+    }
 }
