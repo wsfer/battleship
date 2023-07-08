@@ -5,6 +5,9 @@ class EventCreator {
         const selectedShipText = page.querySelector('.js-selected-ship');
         const ships = page.querySelectorAll('.js-ship');
         const squares = page.querySelectorAll('.js-square');
+        const rotateButton = page.querySelector('.js-rotate-ship');
+        const unselectButton = page.querySelector('.js-unselect-ship');
+        const startGameButton = page.querySelector('.js-start-game');
 
         page.querySelector('.js-random-fleet').addEventListener('click', () => {
             const moves = fleetBuilder.generateRandomFleet();
@@ -21,8 +24,9 @@ class EventCreator {
                     ];
                 }
             });
+            startGameButton.disabled = false;
         });
-        page.querySelector('.js-rotate-ship').addEventListener('click', () => {
+        rotateButton.addEventListener('click', () => {
             if (selectedShip !== null) {
                 const move = fleetBuilder.changeDirection(
                     selectedShip.dataset.name
@@ -39,25 +43,28 @@ class EventCreator {
                     document
                         .querySelector('.js-fleet')
                         .appendChild(selectedShip);
+                    startGameButton.disabled = true;
                 }
             }
         });
-        page.querySelector('.js-unselect-ship').addEventListener(
-            'click',
-            (e) => {
-                if (selectedShip !== null) {
-                    selectedShip.classList.toggle('.selected');
-                    selectedShip = null;
-                    selectedShipText.textContent = 'No ship';
-                    e.target.classList.toggle('disabled');
-                }
+        unselectButton.addEventListener('click', (e) => {
+            if (selectedShip !== null) {
+                selectedShip.classList.toggle('.selected');
+                selectedShip = null;
+                selectedShipText.textContent = 'No ship';
+                e.target.classList.toggle('disabled');
+                rotateButton.disabled = true;
+                unselectButton.disabled = true;
             }
-        );
+        });
         ships.forEach((ship) => {
             ship.addEventListener('click', (e) => {
                 if (selectedShip !== e.target) {
                     if (selectedShip !== null) {
                         selectedShip.classList.toggle('.selected');
+                    } else {
+                        rotateButton.disabled = false;
+                        unselectButton.disabled = false;
                     }
                     selectedShip = e.target;
                     e.target.classList.toggle('.selected');
@@ -67,6 +74,8 @@ class EventCreator {
                     document
                         .querySelector('.js-unselect-ship')
                         .classList.toggle('disabled');
+                    rotateButton.disabled = false;
+                    unselectButton.disabled = false;
                 }
             });
             ship.addEventListener('dragstart', (e) => {
@@ -74,6 +83,9 @@ class EventCreator {
                 if (selectedShip !== e.target) {
                     if (selectedShip !== null) {
                         selectedShip.classList.toggle('.selected');
+                    } else {
+                        rotateButton.disabled = false;
+                        unselectButton.disabled = false;
                     }
                     selectedShip = e.target;
                     e.target.classList.toggle('.selected');
@@ -110,6 +122,9 @@ class EventCreator {
                 const move = fleetBuilder.move(id, [x, y]);
                 if (move.isValid) {
                     e.target.appendChild(ship);
+                    if (fleetBuilder.isDone()) {
+                        startGameButton.disabled = false;
+                    }
                 }
             }
         });

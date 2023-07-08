@@ -3,7 +3,7 @@ class DOMCreator {
         return new Range().createContextualFragment(`
             <header>
                 <button class="js-reset-game"><h1>BATTLESHIP</h1></button>
-                <button class="sound-button js-sound on">
+                <button class="svg-button sound-button js-sound on">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <title>Sound on</title>
                         <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
@@ -39,8 +39,8 @@ class DOMCreator {
 
     static createStartScreen() {
         return new Range().createContextualFragment(`
-            <h1>BATTLESHIP<h1>
-            <button class="js-new-game">New Game</button>
+            <h1 class="game-title">BATTLESHIP<h1>
+            <button class="text-button js-new-game">New Game</button>
         `);
     }
 
@@ -60,19 +60,19 @@ class DOMCreator {
             </p>
             <section>
                 <section class="settings">
-                    <button class="js-random-fleet">
+                    <button class="svg-button js-random-fleet">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <title>Random fleet</title>
                             <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M7,5A2,2 0 0,0 5,7A2,2 0 0,0 7,9A2,2 0 0,0 9,7A2,2 0 0,0 7,5M17,15A2,2 0 0,0 15,17A2,2 0 0,0 17,19A2,2 0 0,0 19,17A2,2 0 0,0 17,15M17,5A2,2 0 0,0 15,7A2,2 0 0,0 17,9A2,2 0 0,0 19,7A2,2 0 0,0 17,5M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M7,15A2,2 0 0,0 5,17A2,2 0 0,0 7,19A2,2 0 0,0 9,17A2,2 0 0,0 7,15Z" />
                         </svg>
                     </button>
-                    <button class="js-rotate-ship">
+                    <button class="svg-button js-rotate-ship" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <title>Rotate Ship</title>
                             <path d="M12 7C6.5 7 2 9.2 2 12C2 14.2 4.9 16.1 9 16.8V20L13 16L9 12V14.7C5.8 14.1 4 12.8 4 12C4 10.9 7 9 12 9S20 10.9 20 12C20 12.7 18.5 13.9 16 14.5V16.6C19.5 15.8 22 14.1 22 12C22 9.2 17.5 7 12 7Z" />
                         </svg>
                     </button>
-                    <button class="js-unselect-ship">
+                    <button class="svg-button js-unselect-ship" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <title>Unselect</title>
                             <path d="M12 2C17.5 2 22 6.5 22 12S17.5 22 12 22 2 17.5 2 12 6.5 2 12 2M12 4C10.1 4 8.4 4.6 7.1 5.7L18.3 16.9C19.3 15.5 20 13.8 20 12C20 7.6 16.4 4 12 4M16.9 18.3L5.7 7.1C4.6 8.4 4 10.1 4 12C4 16.4 7.6 20 12 20C13.9 20 15.6 19.4 16.9 18.3Z" />
@@ -94,7 +94,7 @@ class DOMCreator {
                     <div id="carrier" class="js-ship" draggable="true" data-direction="horizontal" data-name="carrier" style="height: 3rem; width: 15rem; background-color: red"></div>
                 </section>
             </section>
-            <button class="js-start-game">Start Game</button>
+            <button class="solid-button js-start-game" disabled>Start Game</button>
         `);
     }
 
@@ -154,7 +154,7 @@ class DOMCreator {
             <p class="js-combat-log">Attack!</p>
             <section class="js-gameover-box">
                 <h3><span class="js-winner"></span> won the game</h3>
-                <button class="js-restart-game">Play again</button>
+                <button class="solid-button js-restart-game">Play again</button>
             </section>
         `);
     }

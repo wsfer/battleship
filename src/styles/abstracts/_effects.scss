@@ -1,5 +1,0 @@
-@mixin svg-button-color($normal, $hover, $active) {
-    path { fill: $normal; }
-    &:hover path { fill: $hover; }
-    &:active path { fill: $active }
-}

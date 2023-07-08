@@ -1,11 +1,6 @@
 @use '../abstracts' as *;
 
 .sound-button {
-    width: 2rem;
-    height: 2rem;
-
-    @include svg-button-color(var(--font), var(--light-opaque), var(--secondary));
-
     svg:first-child {
         display: none;
     }
@@ -19,4 +14,45 @@
             display: none;
         }
     }
+}
+
+.svg-button {
+    width: 2rem;
+    height: 2rem;
+
+    @include button-effects(
+        $prop: fill,
+        $normal: var(--font),
+        $hover: var(--secondary),
+        $active: var(--light-opaque),
+        $disabled: var(--light-opaque)
+    );
+}
+
+.text-button {
+    font-size: 1.5rem;
+
+    @include button-effects(
+        $prop: color,
+        $normal: var(--font),
+        $hover: var(--secondary),
+        $active: var(--light-opaque),
+        $disabled: var(--light-opaque)
+    );
+}
+
+.solid-button {
+    color: var(--background);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem 2.5rem;
+    border-radius: 2rem;
+
+    @include button-effects(
+        $prop: background-color,
+        $normal: var(--font),
+        $hover: var(--secondary),
+        $active: var(--light-opaque),
+        $disabled: var(--light-opaque)
+    );
 }

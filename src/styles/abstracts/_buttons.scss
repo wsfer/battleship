@@ -1,0 +1,10 @@
+@mixin button-effects($prop, $normal, $hover, $active, $disabled) {
+    cursor: pointer;
+    #{$prop}: $normal;
+    &:hover { #{$prop}: $hover; }
+    &:active { #{$prop}: $active; }
+    &:disabled {
+        #{$prop}: $disabled;
+        cursor: auto;
+    }
+}
