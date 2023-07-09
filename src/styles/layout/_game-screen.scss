@@ -1,0 +1,25 @@
+@use '../abstracts' as *;
+
+.player-boards-container {
+    @include center-content;
+    flex-wrap: wrap;
+    gap: 3rem;
+
+    > .board-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto 1fr;
+        gap: 2rem;
+
+        > .board-title {
+            grid-column: span 2;
+            text-align: center;
+        }
+
+        > .ship-status {
+            @include center-content;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+}

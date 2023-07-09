@@ -58,7 +58,7 @@ class DOMCreator {
             <p>
                 <span class="js-selected-ship">No ship</span> selected
             </p>
-            <section>
+            <section class="fleet-builder">
                 <section class="settings">
                     <button class="svg-button js-random-fleet">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -131,93 +131,89 @@ class DOMCreator {
 
         return new Range().createContextualFragment(`
             <p>
-                <span class="js-player-name-turn">Player</span> turn
+                <span class="js-player-name-turn action-text">Player</span> turn
             </p>
-            <section>
-                <section>
-                    <h3><span>Player</span> fleet</h3>
-                    <section>
-                        <section class="ship-status">
-                            <div class="js-player-destroyer"></div>
-                            <div class="js-player-submarine"></div>
-                            <div class="js-player-cruiser"></div>
-                            <div class="js-player-battleship"></div>
-                            <div class="js-player-carrier"></div>
-                        </section>
-                        <section class="gameboard">
-                            <div class="x-coords">
-                                <div>A</div>
-                                <div>B</div>
-                                <div>C</div>
-                                <div>D</div>
-                                <div>E</div>
-                                <div>F</div>
-                                <div>G</div>
-                                <div>H</div>
-                                <div>I</div>
-                                <div>J</div>
-                            </div>
-                            <div class="y-coords">
-                                <div>1</div>
-                                <div>2</div>
-                                <div>3</div>
-                                <div>4</div>
-                                <div>5</div>
-                                <div>6</div>
-                                <div>7</div>
-                                <div>8</div>
-                                <div>9</div>
-                                <div>10</div>
-                            </div>
-                            <div class="fleet js-player-fleet">
-                                ${board}
-                            </div>
-                        </section>
+            <section class="player-boards-container">
+                <section class="board-container">
+                    <h3 class="board-title"><span>Player</span> fleet</h3>
+                    <section class="ship-status">
+                        <div class="js-player-destroyer"></div>
+                        <div class="js-player-submarine"></div>
+                        <div class="js-player-cruiser"></div>
+                        <div class="js-player-battleship"></div>
+                        <div class="js-player-carrier"></div>
+                    </section>
+                    <section class="gameboard">
+                        <div class="x-coords">
+                            <div>A</div>
+                            <div>B</div>
+                            <div>C</div>
+                            <div>D</div>
+                            <div>E</div>
+                            <div>F</div>
+                            <div>G</div>
+                            <div>H</div>
+                            <div>I</div>
+                            <div>J</div>
+                        </div>
+                        <div class="y-coords">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                            <div>9</div>
+                            <div>10</div>
+                        </div>
+                        <div class="fleet js-player-fleet">
+                            ${board}
+                        </div>
                     </section>
                 </section>
-                <section>
-                    <h3><span>Computer</span> fleet</h3>
-                    <section>
-                        <section class="gameboard">
-                            <div class="x-coords">
-                                <div>A</div>
-                                <div>B</div>
-                                <div>C</div>
-                                <div>D</div>
-                                <div>E</div>
-                                <div>F</div>
-                                <div>G</div>
-                                <div>H</div>
-                                <div>I</div>
-                                <div>J</div>
-                            </div>
-                            <div class="y-coords">
-                                <div>1</div>
-                                <div>2</div>
-                                <div>3</div>
-                                <div>4</div>
-                                <div>5</div>
-                                <div>6</div>
-                                <div>7</div>
-                                <div>8</div>
-                                <div>9</div>
-                                <div>10</div>
-                            </div>
-                            <div class="fleet js-computer-fleet">
-                                ${board}
-                            </div>
-                        </section>
-                        <section class="ship-status">
-                            <div class="js-computer-destroyer"></div>
-                            <div class="js-computer-submarine"></div>
-                            <div class="js-computer-cruiser"></div>
-                            <div class="js-computer-battleship"></div>
-                            <div class="js-computer-carrier"></div>
-                        </section>
+                <section class="board-container">
+                    <h3 class="board-title"><span>Computer</span> fleet</h3>
+                    <section class="gameboard">
+                        <div class="x-coords">
+                            <div>A</div>
+                            <div>B</div>
+                            <div>C</div>
+                            <div>D</div>
+                            <div>E</div>
+                            <div>F</div>
+                            <div>G</div>
+                            <div>H</div>
+                            <div>I</div>
+                            <div>J</div>
+                        </div>
+                        <div class="y-coords">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                            <div>4</div>
+                            <div>5</div>
+                            <div>6</div>
+                            <div>7</div>
+                            <div>8</div>
+                            <div>9</div>
+                            <div>10</div>
+                        </div>
+                        <div class="fleet js-computer-fleet">
+                            ${board}
+                        </div>
+                    </section>
+                    <section class="ship-status">
+                        <div class="js-computer-destroyer"></div>
+                        <div class="js-computer-submarine"></div>
+                        <div class="js-computer-cruiser"></div>
+                        <div class="js-computer-battleship"></div>
+                        <div class="js-computer-carrier"></div>
                     </section>
                 </section>
             </section>
-            <p class="js-combat-log">Attack!</p>
+            <p class="js-combat-log action-text">Attack!</p>
             <section class="js-gameover-box">
                 <h3><span class="js-winner"></span> won the game</h3>
                 <button class="solid-button js-restart-game">Play again</button>

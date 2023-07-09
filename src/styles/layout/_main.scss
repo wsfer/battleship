@@ -5,3 +5,8 @@ main {
     flex-direction: column;
     gap: 2rem;
 }
+
+.action-text {
+    color: var(--secondary);
+    font-weight: bold;
+}

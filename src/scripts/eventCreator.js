@@ -51,6 +51,7 @@ class EventCreator {
             if (selectedShip !== null) {
                 selectedShip.classList.toggle('.selected');
                 selectedShip = null;
+                selectedShipText.classList.remove('action-text');
                 selectedShipText.textContent = 'No ship';
                 e.target.classList.toggle('disabled');
                 rotateButton.disabled = true;
@@ -71,6 +72,7 @@ class EventCreator {
                     selectedShipText.textContent =
                         e.target.dataset.name.charAt(0).toUpperCase() +
                         e.target.dataset.name.slice(1);
+                    selectedShipText.classList.add('action-text');
                     document
                         .querySelector('.js-unselect-ship')
                         .classList.toggle('disabled');
@@ -92,6 +94,7 @@ class EventCreator {
                     selectedShipText.textContent =
                         e.target.dataset.name.charAt(0).toUpperCase() +
                         e.target.dataset.name.slice(1);
+                    selectedShipText.classList.add('action-text');
                     document
                         .querySelector('.js-unselect-ship')
                         .classList.toggle('disabled');
