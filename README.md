@@ -11,7 +11,7 @@ This is the classic [Battleship](<https://en.wikipedia.org/wiki/Battleship_(game
 
 ## How to use
 
-You can play on your browser by clicking [here]().
+You can play on your browser by clicking [here](https://wsfer.github.io/battleship/).
 
 ## What I learned
 
