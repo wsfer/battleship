@@ -5,16 +5,18 @@ class AudioController {
 
     #splash;
 
-    constructor() {
-        this.#music = new Audio();
-        this.#explosion = new Audio();
-        this.#splash = new Audio();
+    constructor(musicSrc, explosionSrc, splashSrc) {
+        this.#music = new Audio(musicSrc);
+        this.#explosion = new Audio(explosionSrc);
+        this.#splash = new Audio(splashSrc);
         this.#music.autoplay = true;
         this.#music.loop = true;
     }
 
+    // Toggle sound and return a boolean telling if it's muted or not
     toggle() {
         this.#music.muted = !this.#music.muted;
+        return this.#music.muted;
     }
 
     async playMusic() {

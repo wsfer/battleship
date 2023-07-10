@@ -172,7 +172,7 @@ class EventCreator {
                 }
 
                 if (playerTurn.gameover) {
-                    document.body.classList.toggle('gameover');
+                    document.body.classList.toggle('popup');
                     winnerName.textContent = playerTurn.attacker;
                     return;
                 }
@@ -203,7 +203,7 @@ class EventCreator {
                 }
 
                 if (computerTurn.gameover) {
-                    document.body.classList.toggle('gameover');
+                    document.body.classList.toggle('popup');
                     winnerName.textContent = computerTurn.attacker;
                     return;
                 }

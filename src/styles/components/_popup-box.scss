@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+.popup-box {
+    display: none;
+    background-color: var(--background);
+    border-radius: 1rem;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    > div {
+        display: flex;
+        gap: 1rem;
+    }
+
+}
+
+body.popup {
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: var(--dark-opaque);
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+    }
+
+    .popup-box {
+        @include center-content;
+        z-index: 2;
+    }
+}

@@ -9,7 +9,11 @@ import ComputerPlayer from './scripts/computerPlayer';
 import ComputerAI from './scripts/computerAI';
 import GameController from './scripts/gameController';
 
-const audio = new AudioController();
+import music from './assets/war-is-coming.mp3';
+import explosion from './assets/explosion.mp3';
+import splash from './assets/splash.mp3';
+
+const audio = new AudioController(music, explosion, splash);
 
 const startGame = function initializePagesAndObjects() {
     document.querySelector('.js-reset-game').style.display = 'none';
@@ -55,7 +59,7 @@ const startGame = function initializePagesAndObjects() {
     gameScreen
         .querySelector('.js-restart-game')
         .addEventListener('click', () => {
-            document.body.classList.toggle('gameover');
+            document.body.classList.toggle('popup');
             startGame();
         });
 
@@ -66,19 +70,26 @@ const startGame = function initializePagesAndObjects() {
 const page = DOMCreator.createPage(audio);
 
 page.querySelector('.js-reset-game').addEventListener('click', startGame);
-page.querySelector('.js-sound').addEventListener('click', (e) => {
+page.querySelector('.js-sound').addEventListener('click', () => {
     document.querySelector('.js-sound').classList.toggle('on');
-    audio.toggle();
+    const muted = audio.toggle();
+    if (!muted) {
+        audio.playMusic();
+    }
 });
 
 document.body.appendChild(page);
 startGame();
 
-audio
-    .playMusic()
-    .then(() => console.log('Music on'))
-    .catch(() => {
-        console.log('Music off');
+audio.playMusic().catch(() => {
+    document.body.classList.toggle('popup');
+    document.querySelector('.js-allow-sound').addEventListener('click', () => {
+        document.body.classList.toggle('popup');
+        audio.playMusic();
+    });
+    document.querySelector('.js-refuse-sound').addEventListener('click', () => {
+        document.body.classList.toggle('popup');
         document.querySelector('.js-sound').classList.toggle('on');
         audio.toggle();
     });
+});

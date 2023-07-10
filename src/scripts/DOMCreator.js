@@ -41,6 +41,13 @@ class DOMCreator {
         return new Range().createContextualFragment(`
             <h1 class="game-title">BATTLESHIP<h1>
             <button class="text-button js-new-game">New Game</button>
+            <section class="popup-box js-sound-box">
+                <p>Allow sound?</p>
+                <div>
+                    <button class="solid-button js-allow-sound">Allow</button>
+                    <button class="solid-button js-refuse-sound">Refuse</button>
+                </div>
+            </section>
         `);
     }
 
@@ -233,9 +240,9 @@ class DOMCreator {
                     </section>
                 </section>
             </section>
-            <p class="js-combat-log action-text">Attack!</p>
-            <section class="js-gameover-box">
-                <h3><span class="js-winner"></span> won the game</h3>
+            <p class="action-text js-combat-log">Attack!</p>
+            <section class="popup-box js-gameover-box">
+                <h3><span class="action-text js-winner"></span> won the game</h3>
                 <button class="solid-button js-restart-game">Play again</button>
             </section>
         `);
