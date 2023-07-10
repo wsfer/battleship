@@ -1,10 +1,11 @@
 class ComputerAI {
+    // There's a delay of 1s~2s before a move is returned
     static async generateMove(availableCoords, targetingShip) {
         // No ship being targeted: return a random coord
         if (targetingShip === null) {
-            // await new Promise((resolve) => {
-            //     setTimeout(resolve, Math.random() * 1000);
-            // });
+            await new Promise((resolve) => {
+                setTimeout(resolve, Math.random() * 1000 + 1000);
+            });
             return this.#getRandomCoord(availableCoords);
         }
 
@@ -12,17 +13,17 @@ class ComputerAI {
         if (targetingShip.positions.length === 1) {
             const position = targetingShip.positions[0];
 
-            // await new Promise((resolve) => {
-            //     setTimeout(resolve, Math.random() * 1000);
-            // });
+            await new Promise((resolve) => {
+                setTimeout(resolve, Math.random() * 1000 + 1000);
+            });
 
             return this.#getRandomAdjacentCoord(availableCoords, position);
         }
 
         // Ship has a discovered direction
-        // await new Promise((resolve) => {
-        //     setTimeout(resolve, Math.random() * 1000);
-        // });
+        await new Promise((resolve) => {
+            setTimeout(resolve, Math.random() * 1000 + 1000);
+        });
 
         return this.#getRandomEdgeCoord(
             availableCoords,

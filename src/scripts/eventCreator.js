@@ -137,14 +137,19 @@ class EventCreator {
         const combatLog = page.querySelector('.js-combat-log');
         const currentPlayer = page.querySelector('.js-player-name-turn');
         const computerFleet = page.querySelector('.js-computer-fleet');
+        const playerFleet = page.querySelector('.js-player-fleet');
         const playerSquares = page.querySelectorAll(
             '.js-player-fleet > .js-square'
         );
         const winnerName = page.querySelector('.js-winner');
 
         computerFleet.addEventListener('click', async (e) => {
-            if (e.target.classList.contains('js-square')) {
+            if (
+                e.target.classList.contains('js-square') &&
+                !computerFleet.classList.contains('disabled')
+            ) {
                 computerFleet.classList.toggle('disabled');
+                playerFleet.classList.toggle('disabled');
 
                 const [x, y] = [
                     Number(e.target.dataset.x),
@@ -209,6 +214,7 @@ class EventCreator {
                 }
 
                 computerFleet.classList.toggle('disabled');
+                playerFleet.classList.toggle('disabled');
             }
         });
     }

@@ -192,7 +192,7 @@ class DOMCreator {
                                 <div>9</div>
                                 <div>10</div>
                             </div>
-                            <div class="fleet js-player-fleet">
+                            <div class="fleet js-player-fleet disabled">
                                 ${board}
                             </div>
                         </section>
