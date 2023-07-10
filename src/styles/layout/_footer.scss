@@ -11,9 +11,13 @@ footer {
     display: flex;
     gap: 1rem;
 
-    svg {
-        width: 2rem;
-        height: 2rem;
-        fill: var(--font);    
+    > a {
+        @include button-effects(fill);
+
+        > svg {
+            width: 2rem;
+            height: 2rem;
+            fill: inherit;    
+        }
     }
 }
