@@ -135,12 +135,12 @@ class DOMCreator {
             </p>
             <section class="player-boards-container">
                 <section class="board-container">
-                    <section class="fleet-status">
-                        <div class="js-player-destroyer"></div>
-                        <div class="js-player-submarine"></div>
-                        <div class="js-player-cruiser"></div>
-                        <div class="js-player-battleship"></div>
-                        <div class="js-player-carrier"></div>
+                    <section class="fleet-status player-one">
+                        <div class="ship-health destroyer js-player-destroyer"></div>
+                        <div class="ship-health submarine js-player-submarine"></div>
+                        <div class="ship-health cruiser js-player-cruiser"></div>
+                        <div class="ship-health battleship js-player-battleship"></div>
+                        <div class="ship-health carrier js-player-carrier"></div>
                     </section>
                     <div class="fleet-container">
                         <h3 class="board-title"><span>Player</span> fleet</h3>
@@ -208,12 +208,12 @@ class DOMCreator {
                             </div>
                         </section>
                     </div>
-                    <section class="fleet-status">
-                        <div class="js-computer-destroyer"></div>
-                        <div class="js-computer-submarine"></div>
-                        <div class="js-computer-cruiser"></div>
-                        <div class="js-computer-battleship"></div>
-                        <div class="js-computer-carrier"></div>
+                    <section class="fleet-status player-two">
+                        <div class="ship-health destroyer js-computer-destroyer"></div>
+                        <div class="ship-health submarine js-computer-submarine"></div>
+                        <div class="ship-health cruiser js-computer-cruiser"></div>
+                        <div class="ship-health battleship js-computer-battleship"></div>
+                        <div class="ship-health carrier js-computer-carrier"></div>
                     </section>
                 </section>
             </section>

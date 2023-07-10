@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+.fleet-status {
+    @include center-content;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &.player-one {
+        align-items: flex-end;
+    }
+
+    &.player-two {
+        align-items: flex-start;
+    }
+
+    > .ship-health {
+        height: 1rem;
+        border-radius: 1rem;
+        background-image: linear-gradient(var(--secondary), var(--secondary)); // Changed by javascript
+
+        &.destroyer {
+            width: 2rem;
+        }
+
+        &.submarine, &.cruiser {
+            width: 3rem;
+        }
+
+        &.battleship {
+            width: 4rem;
+        }
+
+        &.carrier {
+            width: 5rem;
+        }
+    }
+}

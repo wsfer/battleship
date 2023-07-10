@@ -104,13 +104,6 @@ main {
   display: flex;
   gap: 2rem;
 }
-.player-boards-container > .board-container > .fleet-status {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 0.5rem;
-}
 .player-boards-container > .board-container > .fleet-container {
   display: flex;
   align-items: center;
@@ -252,6 +245,37 @@ main {
 }
 .fleet > .square.sunken {
   background-color: var(--secondary);
+}
+
+.fleet-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.fleet-status.player-one {
+  align-items: flex-end;
+}
+.fleet-status.player-two {
+  align-items: flex-start;
+}
+.fleet-status > .ship-health {
+  height: 1rem;
+  border-radius: 1rem;
+  background-image: linear-gradient(var(--secondary), var(--secondary));
+}
+.fleet-status > .ship-health.destroyer {
+  width: 2rem;
+}
+.fleet-status > .ship-health.submarine, .fleet-status > .ship-health.cruiser {
+  width: 3rem;
+}
+.fleet-status > .ship-health.battleship {
+  width: 4rem;
+}
+.fleet-status > .ship-health.carrier {
+  width: 5rem;
 }
 
 .ship {

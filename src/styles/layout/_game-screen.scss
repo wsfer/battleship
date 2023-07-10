@@ -9,12 +9,6 @@
         display: flex;
         gap: 2rem;
 
-        > .fleet-status {
-            @include center-content;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
         > .fleet-container {
             @include center-content;
             flex-direction: column;
