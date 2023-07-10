@@ -268,7 +268,10 @@ class FleetBuilder {
     // Returns true if all ships have positions
     isDone() {
         const ships = [...this.#ships.values()];
-        return ships.filter((position) => position).length === ships.length;
+        const shipsWithPositions = ships.filter(
+            (ship) => ship.positions !== null
+        );
+        return shipsWithPositions.length === ships.length;
     }
 
     // Returns a COPY of fleet matrix
