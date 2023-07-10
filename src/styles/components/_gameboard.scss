@@ -15,8 +15,8 @@
 
     > div {
         @include center-content;
-        width: 3rem;
-        height: 3rem;
+        width: $square-size;
+        height: $square-size;
     }
 }
 
@@ -26,8 +26,8 @@
 
     > div {
         @include center-content;
-        width: 3rem;
-        height: 3rem;
+        width: $square-size;
+        height: $square-size;
     }
 }
 
@@ -38,8 +38,9 @@
 
     > .square {
         border: 2px solid var(--font);
-        width: 3rem;
-        height: 3rem;
+        width: $square-size;
+        height: $square-size;
+        position: relative;
 
         &.water {
             background-color: var(--water);
@@ -47,6 +48,10 @@
 
         &.sunken {
             background-color: var(--secondary);
+        }
+
+        > .ship {
+            position: absolute;
         }
     }
 }
