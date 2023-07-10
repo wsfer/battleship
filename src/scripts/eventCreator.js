@@ -41,7 +41,7 @@ class EventCreator {
                 ];
                 if (!move.isValid) {
                     document
-                        .querySelector('.js-fleet')
+                        .querySelector('.js-ship-dock')
                         .appendChild(selectedShip);
                     startGameButton.disabled = true;
                 }
@@ -49,7 +49,7 @@ class EventCreator {
         });
         unselectButton.addEventListener('click', (e) => {
             if (selectedShip !== null) {
-                selectedShip.classList.toggle('.selected');
+                selectedShip.classList.toggle('selected');
                 selectedShip = null;
                 selectedShipText.classList.remove('action-text');
                 selectedShipText.textContent = 'No ship';
@@ -62,13 +62,13 @@ class EventCreator {
             ship.addEventListener('click', (e) => {
                 if (selectedShip !== e.target) {
                     if (selectedShip !== null) {
-                        selectedShip.classList.toggle('.selected');
+                        selectedShip.classList.toggle('selected');
                     } else {
                         rotateButton.disabled = false;
                         unselectButton.disabled = false;
                     }
                     selectedShip = e.target;
-                    e.target.classList.toggle('.selected');
+                    e.target.classList.toggle('selected');
                     selectedShipText.textContent =
                         e.target.dataset.name.charAt(0).toUpperCase() +
                         e.target.dataset.name.slice(1);
@@ -84,13 +84,13 @@ class EventCreator {
                 e.dataTransfer.setData('ship', e.target.id);
                 if (selectedShip !== e.target) {
                     if (selectedShip !== null) {
-                        selectedShip.classList.toggle('.selected');
+                        selectedShip.classList.toggle('selected');
                     } else {
                         rotateButton.disabled = false;
                         unselectButton.disabled = false;
                     }
                     selectedShip = e.target;
-                    e.target.classList.toggle('.selected');
+                    e.target.classList.toggle('selected');
                     selectedShipText.textContent =
                         e.target.dataset.name.charAt(0).toUpperCase() +
                         e.target.dataset.name.slice(1);

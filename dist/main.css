@@ -257,6 +257,7 @@ main {
 }
 .fleet > .square > .ship {
   position: absolute;
+  z-index: 1;
 }
 
 .fleet-status {
@@ -290,17 +291,21 @@ main {
   width: 5rem;
 }
 
+.ship-dock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: calc(clamp(5rem, 25vw, 12.5rem) + 2rem);
+  height: 75%;
+  padding: 1rem;
+  gap: 1rem;
+  align-self: center;
+}
+
 .ship {
-  position: relative;
+  background-color: var(--light-opaque);
 }
-
-.ship-status > div {
-  width: 3rem;
-  height: 1rem;
-  background-image: linear-gradient(red 100%);
-}
-
-.fleet-status > div {
-  width: 1.5rem;
-  height: 0.5rem;
+.ship.selected {
+  background-color: var(--secondary);
 }

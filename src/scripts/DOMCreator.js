@@ -109,12 +109,27 @@ class DOMCreator {
                             ${board}
                         </div>
                     </section>
-                <section class="ship-container js-ship-container">
-                    <div id="destroyer" class="js-ship" draggable="true" data-direction="horizontal" data-name="destroyer" style="height: 3rem; width: 6rem; background-color: red"></div>
-                    <div id="submarine" class="js-ship" draggable="true" data-direction="horizontal" data-name="submarine" style="height: 3rem; width: 9rem; background-color: red"></div>
-                    <div id="cruiser" class="js-ship" draggable="true" data-direction="horizontal" data-name="cruiser" style="height: 3rem; width: 9rem; background-color: red"></div>
-                    <div id="battleship" class="js-ship" draggable="true" data-direction="horizontal" data-name="battleship" style="height: 3rem; width: 12rem; background-color: red"></div>
-                    <div id="carrier" class="js-ship" draggable="true" data-direction="horizontal" data-name="carrier" style="height: 3rem; width: 15rem; background-color: red"></div>
+                <section class="ship-dock js-ship-dock">
+                    <div id="destroyer" class="destroyer ship js-ship" draggable="true"
+                        data-direction="horizontal" data-name="destroyer"
+                        style="height: clamp(1rem, 5vw, 2.5rem); width: clamp(2rem, 10vw, 5rem);">
+                    </div>
+                    <div id="submarine" class="submarine ship js-ship" draggable="true"
+                        data-direction="horizontal" data-name="submarine"
+                        style="height: clamp(1rem, 5vw, 2.5rem); width: clamp(3rem, 15vw, 7.5rem);">
+                    </div>
+                    <div id="cruiser" class="cruiser ship js-ship" draggable="true"
+                        data-direction="horizontal" data-name="cruiser"
+                        style="height: clamp(1rem, 5vw, 2.5rem); width: clamp(3rem, 15vw, 7.5rem);">
+                    </div>
+                    <div id="battleship" class="battleship ship js-ship" draggable="true"
+                        data-direction="horizontal" data-name="battleship"
+                        style="height: clamp(1rem, 5vw, 2.5rem); width: clamp(4rem, 20vw, 10rem);">
+                    </div>
+                    <div id="carrier" class="carrier ship js-ship" draggable="true"
+                        data-direction="horizontal" data-name="carrier"
+                        style="height: clamp(1rem, 5vw, 2.5rem); width: clamp(5rem, 25vw, 12.5rem);">
+                    </div>
                 </section>
             </section>
             <button class="solid-button js-start-game" disabled>Start Game</button>
