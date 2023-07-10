@@ -135,76 +135,80 @@ class DOMCreator {
             </p>
             <section class="player-boards-container">
                 <section class="board-container">
-                    <h3 class="board-title"><span>Player</span> fleet</h3>
-                    <section class="ship-status">
+                    <section class="fleet-status">
                         <div class="js-player-destroyer"></div>
                         <div class="js-player-submarine"></div>
                         <div class="js-player-cruiser"></div>
                         <div class="js-player-battleship"></div>
                         <div class="js-player-carrier"></div>
                     </section>
-                    <section class="gameboard">
-                        <div class="x-coords">
-                            <div>A</div>
-                            <div>B</div>
-                            <div>C</div>
-                            <div>D</div>
-                            <div>E</div>
-                            <div>F</div>
-                            <div>G</div>
-                            <div>H</div>
-                            <div>I</div>
-                            <div>J</div>
-                        </div>
-                        <div class="y-coords">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                            <div>4</div>
-                            <div>5</div>
-                            <div>6</div>
-                            <div>7</div>
-                            <div>8</div>
-                            <div>9</div>
-                            <div>10</div>
-                        </div>
-                        <div class="fleet js-player-fleet">
-                            ${board}
-                        </div>
-                    </section>
+                    <div class="fleet-container">
+                        <h3 class="board-title"><span>Player</span> fleet</h3>
+                        <section class="gameboard">
+                            <div class="x-coords">
+                                <div>A</div>
+                                <div>B</div>
+                                <div>C</div>
+                                <div>D</div>
+                                <div>E</div>
+                                <div>F</div>
+                                <div>G</div>
+                                <div>H</div>
+                                <div>I</div>
+                                <div>J</div>
+                            </div>
+                            <div class="y-coords">
+                                <div>1</div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
+                                <div>5</div>
+                                <div>6</div>
+                                <div>7</div>
+                                <div>8</div>
+                                <div>9</div>
+                                <div>10</div>
+                            </div>
+                            <div class="fleet js-player-fleet">
+                                ${board}
+                            </div>
+                        </section>
+                    </div>
                 </section>
                 <section class="board-container">
-                    <h3 class="board-title"><span>Computer</span> fleet</h3>
-                    <section class="gameboard">
-                        <div class="x-coords">
-                            <div>A</div>
-                            <div>B</div>
-                            <div>C</div>
-                            <div>D</div>
-                            <div>E</div>
-                            <div>F</div>
-                            <div>G</div>
-                            <div>H</div>
-                            <div>I</div>
-                            <div>J</div>
-                        </div>
-                        <div class="y-coords">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                            <div>4</div>
-                            <div>5</div>
-                            <div>6</div>
-                            <div>7</div>
-                            <div>8</div>
-                            <div>9</div>
-                            <div>10</div>
-                        </div>
-                        <div class="fleet js-computer-fleet">
-                            ${board}
-                        </div>
-                    </section>
-                    <section class="ship-status">
+                    <div class="fleet-container">
+                        <h3 class="board-title"><span>Computer</span> fleet</h3>
+                        <section class="gameboard">
+                            <div class="x-coords">
+                                <div>A</div>
+                                <div>B</div>
+                                <div>C</div>
+                                <div>D</div>
+                                <div>E</div>
+                                <div>F</div>
+                                <div>G</div>
+                                <div>H</div>
+                                <div>I</div>
+                                <div>J</div>
+                            </div>
+                            <div class="y-coords">
+                                <div>1</div>
+                                <div>2</div>
+                                <div>3</div>
+                                <div>4</div>
+                                <div>5</div>
+                                <div>6</div>
+                                <div>7</div>
+                                <div>8</div>
+                                <div>9</div>
+                                <div>10</div>
+                            </div>
+                            <div class="fleet js-computer-fleet">
+                                ${board}
+                            </div>
+                        </section>
+                    </div>
+                    <section class="fleet-status">
                         <div class="js-computer-destroyer"></div>
                         <div class="js-computer-submarine"></div>
                         <div class="js-computer-cruiser"></div>

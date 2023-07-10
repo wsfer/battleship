@@ -101,21 +101,22 @@ main {
   gap: 3rem;
 }
 .player-boards-container > .board-container {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto 1fr;
+  display: flex;
   gap: 2rem;
 }
-.player-boards-container > .board-container > .board-title {
-  grid-column: span 2;
-  text-align: center;
-}
-.player-boards-container > .board-container > .ship-status {
+.player-boards-container > .board-container > .fleet-status {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
+}
+.player-boards-container > .board-container > .fleet-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .sound-button svg:first-child {
@@ -261,4 +262,9 @@ main {
   width: 3rem;
   height: 1rem;
   background-image: linear-gradient(red 100%);
+}
+
+.fleet-status > div {
+  width: 1.5rem;
+  height: 0.5rem;
 }
