@@ -46,12 +46,19 @@ const startGame = function initializePagesAndObjects() {
     fleetScreen
         .querySelector('.js-start-game')
         .addEventListener('click', () => {
-            if (playerFleet.isDone()) {
+            const playerName = document.querySelector('.js-player-name');
+            if (playerFleet.isDone() && playerName.value !== '') {
                 document.querySelector('main').textContent = '';
+
                 playerBoard = new Gameboard(playerFleet.getFleet());
-                player = new Player('Player', playerBoard);
+                player = new Player(playerName.value, playerBoard);
                 game = new GameController(player, computer);
                 EventCreator.addGameScreenEvents(gameScreen, game, audio);
+                gameScreen.querySelector('.js-player-name-turn').textContent =
+                    player.name;
+                gameScreen.querySelector('.js-player-name-board').textContent =
+                    player.name;
+
                 document.querySelector('main').appendChild(gameScreen);
             }
         });

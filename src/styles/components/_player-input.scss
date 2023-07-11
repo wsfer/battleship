@@ -1,0 +1,48 @@
+.player-name-input {
+    display: grid;
+    grid-template-areas: 
+        ' pen-icon  txt-label name-input  '
+        '     .         .     message';
+    gap: 1rem;
+
+    > svg {
+        grid-area: pen-icon;
+        fill: var(--font);
+        width: 1.5rem;
+        align-self: center;
+    }
+
+    > label {
+        font-size: 1.25rem;
+        grid-area: txt-label;
+        align-self: center;
+    }
+
+    > input {
+        font-size: 1.25rem;
+        grid-area: name-input;
+        color: var(--secondary);
+        transition: all 0.5s ease-in-out;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+
+        &:focus {
+            background-color: var(--light-opaque);
+        }
+
+        &:invalid {
+            background-color: var(--light-opaque);
+
+            & + p {
+                visibility: visible;
+            }
+        }
+    }
+
+    > .invalid-input-message {
+        grid-area: message;
+        visibility: hidden;
+        color: rgb(243, 76, 76);
+        font-size: 0.8rem;
+    }
+}

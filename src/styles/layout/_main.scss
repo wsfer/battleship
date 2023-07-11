@@ -5,4 +5,9 @@ main {
     flex-direction: column;
     gap: 2rem;
     padding: 0 3rem;
+
+    > .player-name-input {
+        align-self: flex-end;
+        padding: 0 2rem;
+    }
 }
