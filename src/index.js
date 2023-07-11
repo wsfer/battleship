@@ -19,47 +19,88 @@ const startGame = function initializePagesAndObjects() {
     document.querySelector('.js-reset-game').style.display = 'none';
 
     const startScreen = DOMCreator.createStartScreen();
-    const fleetScreen = DOMCreator.createFleetScreen();
+    const fleetScreenOne = DOMCreator.createFleetScreen();
+    const fleetScreenTwo = DOMCreator.createFleetScreen();
     const gameScreen = DOMCreator.createGameScreen();
 
-    const playerFleet = new FleetBuilder();
-    const computerFleet = new FleetBuilder();
-    let playerBoard = null;
-    let computerBoard = null;
-    let player = null;
-    let computer = null;
+    const playerOneFleet = new FleetBuilder();
+    const playerTwoFleet = new FleetBuilder();
+    let playerOneBoard = null;
+    let playerTwoBoard = null;
+    let playerOne = null;
+    let playerTwo = null;
     let game = null;
 
-    startScreen.querySelector('.js-new-game').addEventListener('click', () => {
-        document.querySelector('main').textContent = '';
-        document.querySelector('.js-reset-game').style.display = 'block';
+    fleetScreenOne.querySelector('.js-player-name').value = 'PlayerOne';
+    fleetScreenTwo.querySelector('.js-player-name').value = 'PlayerTwo';
 
-        // Initialize computer player
-        computerFleet.generateRandomFleet();
-        computerBoard = new Gameboard(computerFleet.getFleet());
-        computer = new ComputerPlayer('Computer', computerBoard, ComputerAI);
+    startScreen
+        .querySelector('.js-player-vs-computer')
+        .addEventListener('click', () => {
+            document.querySelector('main').textContent = '';
+            document.querySelector('.js-reset-game').style.display = 'block';
 
-        EventCreator.addFleetScreenEvents(fleetScreen, playerFleet);
-        document.querySelector('main').appendChild(fleetScreen);
-    });
+            // Initialize computer player
+            playerTwoFleet.generateRandomFleet();
+            playerTwoBoard = new Gameboard(playerTwoFleet.getFleet());
+            playerTwo = new ComputerPlayer(
+                'Computer',
+                playerTwoBoard,
+                ComputerAI
+            );
 
-    fleetScreen
+            EventCreator.addFleetScreenEvents(fleetScreenOne, playerOneFleet);
+            document.querySelector('main').appendChild(fleetScreenOne);
+        });
+
+    startScreen
+        .querySelector('.js-player-vs-player')
+        .addEventListener('click', () => {
+            document.querySelector('main').textContent = '';
+            document.querySelector('.js-reset-game').style.display = 'block';
+            EventCreator.addFleetScreenEvents(fleetScreenTwo, playerTwoFleet);
+            document.querySelector('main').appendChild(fleetScreenTwo);
+        });
+
+    fleetScreenOne
         .querySelector('.js-start-game')
         .addEventListener('click', () => {
             const playerName = document.querySelector('.js-player-name');
-            if (playerFleet.isDone() && playerName.value !== '') {
+            if (playerOneFleet.isDone() && playerName.value !== '') {
                 document.querySelector('main').textContent = '';
 
-                playerBoard = new Gameboard(playerFleet.getFleet());
-                player = new Player(playerName.value, playerBoard);
-                game = new GameController(player, computer);
-                EventCreator.addGameScreenEvents(gameScreen, game, audio);
-                gameScreen.querySelector('.js-player-name-turn').textContent =
-                    player.name;
-                gameScreen.querySelector('.js-player-name-board').textContent =
-                    player.name;
+                playerOneBoard = new Gameboard(playerOneFleet.getFleet());
+                playerOne = new Player(playerName.value, playerOneBoard);
+                game = new GameController(playerOne, playerTwo);
 
+                gameScreen.querySelector('.js-player-name-turn').textContent =
+                    playerOne.name;
+                gameScreen.querySelector('.js-player-one-name').textContent =
+                    playerOne.name;
+
+                EventCreator.addGameScreenEvents(gameScreen, game, audio);
                 document.querySelector('main').appendChild(gameScreen);
+            }
+        });
+
+    // Only used on player vs player
+    fleetScreenTwo
+        .querySelector('.js-start-game')
+        .addEventListener('click', () => {
+            const playerName = document.querySelector('.js-player-name');
+            if (playerTwoFleet.isDone() && playerName.value !== '') {
+                document.querySelector('main').textContent = '';
+
+                playerTwoBoard = new Gameboard(playerTwoFleet.getFleet());
+                playerTwo = new Player(playerName.value, playerTwoBoard);
+                gameScreen.querySelector('.js-player-two-name').textContent =
+                    playerTwo.name;
+
+                EventCreator.addFleetScreenEvents(
+                    fleetScreenOne,
+                    playerOneFleet
+                );
+                document.querySelector('main').appendChild(fleetScreenOne);
             }
         });
 
