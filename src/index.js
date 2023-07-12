@@ -37,6 +37,7 @@ const startGame = function initializePagesAndObjects() {
     const DOMContent = {
         combatLog: gameScreen.querySelector('.js-combat-log'),
         nextPlayer: gameScreen.querySelector('.js-player-name-turn'),
+        winnerName: gameScreen.querySelector('.js-winner'),
         playerOneSquares: [
             ...gameScreen.querySelectorAll('.js-player-one-fleet > .js-square'),
         ].reduce(
