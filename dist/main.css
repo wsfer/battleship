@@ -383,6 +383,10 @@ body.popup .popup-box {
   font-weight: bold;
 }
 
+.changing-text {
+  font-size: 1.5rem;
+}
+
 .player-name-input {
   display: grid;
   grid-template-areas: " pen-icon  txt-label name-input  " "     .         .     message";

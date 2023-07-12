@@ -43,6 +43,7 @@ class DOMCreator {
             <div class="buttons-container">
                 <button class="text-button js-player-vs-computer">Player vs Computer</button>
                 <button class="text-button js-player-vs-player">Player vs Player</button>
+                <button class="text-button js-computer-vs-computer">Computer vs Computer</button>
             </div>
             <section class="popup-box js-sound-box">
                 <p>Allow sound?</p>
@@ -165,9 +166,7 @@ class DOMCreator {
         }
 
         return new Range().createContextualFragment(`
-            <p>
-                <span class="js-player-name-turn action-text"></span> turn
-            </p>
+            <p class="changing-text"><span class="js-player-name-turn action-text"></span> turn</p>
             <section class="player-boards-container">
                 <section class="board-container">
                     <section class="fleet-status player-one">
@@ -178,7 +177,7 @@ class DOMCreator {
                         <div class="ship-health carrier js-player-carrier"></div>
                     </section>
                     <div class="fleet-container">
-                        <h3 class="board-title"><span class="js-player-one-name"></span> fleet</h3>
+                        <h3 class="board-title"><span class="action-text js-player-one-name"></span> fleet</h3>
                         <section class="gameboard">
                             <div class="x-coords">
                                 <div>A</div>
@@ -212,7 +211,7 @@ class DOMCreator {
                 </section>
                 <section class="board-container">
                     <div class="fleet-container">
-                        <h3 class="board-title"><span class="js-player-two-name"></span> fleet</h3>
+                        <h3 class="board-title"><span class="action-text js-player-two-name"></span> fleet</h3>
                         <section class="gameboard">
                             <div class="x-coords">
                                 <div>A</div>
@@ -252,7 +251,7 @@ class DOMCreator {
                     </section>
                 </section>
             </section>
-            <p class="action-text js-combat-log">Attack!</p>
+            <p class="action-text changing-text js-combat-log"></p>
             <section class="popup-box js-gameover-box">
                 <h3><span class="action-text js-winner"></span> won the game</h3>
                 <button class="solid-button js-restart-game">Play again</button>
