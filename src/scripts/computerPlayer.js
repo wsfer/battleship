@@ -1,8 +1,6 @@
 import Player from './player';
 
 class ComputerPlayer extends Player {
-    #isComputer;
-
     #computerAI;
 
     #coords;
@@ -11,7 +9,6 @@ class ComputerPlayer extends Player {
 
     constructor(name, gameboard, computerAI) {
         super(name, gameboard);
-        this.#isComputer = true;
         this.#coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -21,6 +18,7 @@ class ComputerPlayer extends Player {
             );
         this.#targetShip = null;
         this.#computerAI = computerAI;
+        this.isComputer = true;
     }
 
     async attack(player) {

@@ -1,5 +1,10 @@
 import ComputerPlayer from './computerPlayer';
 
+test('Computer is a computer', () => {
+    const computer = new ComputerPlayer('computer', null, null);
+    expect(computer.isComputer).toBeTruthy;
+});
+
 test('Computer attacks another player', async () => {
     const mockPlayer = {
         receiveAttack: jest.fn().mockReturnValue({ isShip: false, x: 1, y: 1 }),

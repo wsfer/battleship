@@ -3,20 +3,14 @@ class Player {
 
     #gameboard;
 
-    #isComputer;
-
     constructor(name, gameboard) {
         this.#name = name;
         this.#gameboard = gameboard;
-        this.#isComputer = false;
+        this.isComputer = false;
     }
 
     get name() {
         return this.#name;
-    }
-
-    get isComputer() {
-        return this.#isComputer;
     }
 
     receiveAttack([x, y]) {
