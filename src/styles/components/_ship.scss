@@ -4,10 +4,8 @@
     @include center-content;
     flex-wrap: wrap;
     width: calc(clamp(5rem, 25vw, 12.5rem) + 2rem);
-    height: 75%;
     padding: 1rem;
     gap: 1rem;
-    align-self: center;
 }
 
 .ship {

@@ -128,6 +128,7 @@ class DOMCreator {
                             ${board}
                         </div>
                     </section>
+                </div>
                 <section class="ship-dock js-ship-dock">
                     <div id="destroyer" class="destroyer ship js-ship" draggable="true"
                         data-direction="horizontal" data-name="destroyer"
