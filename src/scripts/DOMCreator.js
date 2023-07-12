@@ -204,7 +204,7 @@ class DOMCreator {
                                 <div>9</div>
                                 <div>10</div>
                             </div>
-                            <div class="fleet js-player-fleet disabled">
+                            <div class="fleet js-player-one-fleet">
                                 ${board}
                             </div>
                         </section>
@@ -238,17 +238,17 @@ class DOMCreator {
                                 <div>9</div>
                                 <div>10</div>
                             </div>
-                            <div class="fleet js-computer-fleet">
+                            <div class="fleet js-player-two-fleet">
                                 ${board}
                             </div>
                         </section>
                     </div>
                     <section class="fleet-status player-two">
-                        <div class="ship-health destroyer js-computer-destroyer"></div>
-                        <div class="ship-health submarine js-computer-submarine"></div>
-                        <div class="ship-health cruiser js-computer-cruiser"></div>
-                        <div class="ship-health battleship js-computer-battleship"></div>
-                        <div class="ship-health carrier js-computer-carrier"></div>
+                        <div class="ship-health destroyer js-player-two-destroyer"></div>
+                        <div class="ship-health submarine js-player-two-submarine"></div>
+                        <div class="ship-health cruiser js-player-two-cruiser"></div>
+                        <div class="ship-health battleship js-player-two-battleship"></div>
+                        <div class="ship-health carrier js-player-two-carrier"></div>
                     </section>
                 </section>
             </section>

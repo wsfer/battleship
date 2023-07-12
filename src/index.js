@@ -18,11 +18,13 @@ const audio = new AudioController(music, explosion, splash);
 const startGame = function initializePagesAndObjects() {
     document.querySelector('.js-reset-game').style.display = 'none';
 
+    // Screens
     const startScreen = DOMCreator.createStartScreen();
     const fleetScreenOne = DOMCreator.createFleetScreen();
     const fleetScreenTwo = DOMCreator.createFleetScreen();
     const gameScreen = DOMCreator.createGameScreen();
 
+    // Game objects
     const playerOneFleet = new FleetBuilder();
     const playerTwoFleet = new FleetBuilder();
     let playerOneBoard = null;
@@ -30,6 +32,30 @@ const startGame = function initializePagesAndObjects() {
     let playerOne = null;
     let playerTwo = null;
     let game = null;
+
+    // DOM references for gameController
+    const DOMContent = {
+        combatLog: gameScreen.querySelector('.js-combat-log'),
+        nextPlayer: gameScreen.querySelector('.js-player-name-turn'),
+        playerOneSquares: [
+            ...gameScreen.querySelectorAll('.js-player-one-fleet > .js-square'),
+        ].reduce(
+            (rows, key, index) =>
+                (index % 10 === 0
+                    ? rows.push([key])
+                    : rows[rows.length - 1].push(key)) && rows,
+            []
+        ),
+        playerTwoSquares: [
+            ...gameScreen.querySelectorAll('.js-player-two-fleet > .js-square'),
+        ].reduce(
+            (rows, key, index) =>
+                (index % 10 === 0
+                    ? rows.push([key])
+                    : rows[rows.length - 1].push(key)) && rows,
+            []
+        ),
+    };
 
     fleetScreenOne.querySelector('.js-player-name').value = 'PlayerOne';
     fleetScreenTwo.querySelector('.js-player-name').value = 'PlayerTwo';
@@ -71,14 +97,22 @@ const startGame = function initializePagesAndObjects() {
 
                 playerOneBoard = new Gameboard(playerOneFleet.getFleet());
                 playerOne = new Player(playerName.value, playerOneBoard);
-                game = new GameController(playerOne, playerTwo);
+                game = new GameController(playerOne, playerTwo, DOMContent);
 
                 gameScreen.querySelector('.js-player-name-turn').textContent =
                     playerOne.name;
                 gameScreen.querySelector('.js-player-one-name').textContent =
                     playerOne.name;
+                gameScreen.querySelector('.js-player-two-name').textContent =
+                    playerTwo.name;
 
-                EventCreator.addGameScreenEvents(gameScreen, game, audio);
+                EventCreator.addGameScreenEvents(
+                    gameScreen,
+                    game,
+                    audio,
+                    playerOne,
+                    playerTwo
+                );
                 document.querySelector('main').appendChild(gameScreen);
             }
         });

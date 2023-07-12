@@ -143,90 +143,106 @@ class EventCreator {
         });
     }
 
-    static addGameScreenEvents(page, game, audio) {
-        const combatLog = page.querySelector('.js-combat-log');
-        const currentPlayer = page.querySelector('.js-player-name-turn');
-        const computerFleet = page.querySelector('.js-computer-fleet');
-        const playerFleet = page.querySelector('.js-player-fleet');
-        const playerSquares = page.querySelectorAll(
-            '.js-player-fleet > .js-square'
-        );
-        const winnerName = page.querySelector('.js-winner');
+    static addGameScreenEvents(page, game, audio, playerOne, playerTwo) {
+        const playerOneFleet = page.querySelector('.js-player-one-fleet');
+        const playerTwoFleet = page.querySelector('.js-player-two-fleet');
 
-        computerFleet.addEventListener('click', async (e) => {
-            if (
-                e.target.classList.contains('js-square') &&
-                !computerFleet.classList.contains('disabled')
-            ) {
-                computerFleet.classList.toggle('disabled');
-                playerFleet.classList.toggle('disabled');
+        playerOneFleet.classList.toggle('disabled');
 
-                const [x, y] = [
-                    Number(e.target.dataset.x),
-                    Number(e.target.dataset.y),
-                ];
-                const playerTurn = await game.play([x, y]);
-                combatLog.textContent = `${playerTurn.attacker} attacked ${playerTurn.defender}'s ${playerTurn.target}`;
-                currentPlayer.textContent = playerTurn.defender;
-
-                if (playerTurn.isShip) {
-                    e.target.classList.add('sunken');
-
-                    document.querySelector(
-                        `.js-computer-${playerTurn.target.toLowerCase()}`
-                    ).style.backgroundImage = `linear-gradient(to left, var(--secondary) 0 ${Math.round(
-                        (playerTurn.health / playerTurn.size) * 100
-                    )}%, var(--light-opaque) ${Math.round(
-                        (playerTurn.health / playerTurn.size) * 100
-                    )}% 100%)`;
-
-                    audio.playExplosion();
-                } else {
-                    e.target.classList.add('water');
-                    audio.playSplash();
+        if (!playerOne.isComputer && !playerTwo.isComputer) {
+            // Player vs Player
+            playerTwoFleet.addEventListener('click', async (e) => {
+                if (
+                    e.target.classList.contains('js-square') &&
+                    !playerTwoFleet.classList.contains('disabled')
+                ) {
+                    const turn = await this.#playTurn(
+                        [
+                            Number(e.target.dataset.x),
+                            Number(e.target.dataset.y),
+                        ],
+                        game,
+                        audio,
+                        playerOneFleet,
+                        playerTwoFleet
+                    );
+                    if (turn.gameover) {
+                        document.body.classList.toggle('popup');
+                    }
                 }
-
-                if (playerTurn.gameover) {
-                    document.body.classList.toggle('popup');
-                    winnerName.textContent = playerTurn.attacker;
-                    return;
+            });
+            playerOneFleet.addEventListener('click', async (e) => {
+                if (
+                    e.target.classList.contains('js-square') &&
+                    !playerOneFleet.classList.contains('disabled')
+                ) {
+                    const turn = await this.#playTurn(
+                        [
+                            Number(e.target.dataset.x),
+                            Number(e.target.dataset.y),
+                        ],
+                        game,
+                        audio,
+                        playerTwoFleet,
+                        playerOneFleet
+                    );
+                    if (turn.gameover) {
+                        document.body.classList.toggle('popup');
+                    }
                 }
+            });
+        } else if (!playerOne.isComputer) {
+            // PLayer vs Computer
+            playerTwoFleet.addEventListener('click', async (e) => {
+                if (
+                    e.target.classList.contains('js-square') &&
+                    !playerTwoFleet.classList.contains('disabled')
+                ) {
+                    const playerTurn = await this.#playTurn(
+                        [
+                            Number(e.target.dataset.x),
+                            Number(e.target.dataset.y),
+                        ],
+                        game,
+                        audio,
+                        playerOneFleet,
+                        playerTwoFleet
+                    );
 
-                const computerTurn = await game.play(null);
-                combatLog.textContent = `${computerTurn.attacker} attacked ${computerTurn.defender}'s ${computerTurn.target}`;
-                currentPlayer.textContent = computerTurn.defender;
+                    if (playerTurn.gameover) {
+                        document.body.classList.toggle('popup');
+                        return;
+                    }
 
-                if (computerTurn.isShip) {
-                    playerSquares[
-                        computerTurn.x * 10 + computerTurn.y
-                    ].classList.add('sunken');
+                    const computerTurn = await this.#playTurn(
+                        null,
+                        game,
+                        audio,
+                        playerTwoFleet,
+                        playerOneFleet
+                    );
 
-                    document.querySelector(
-                        `.js-player-${computerTurn.target.toLowerCase()}`
-                    ).style.backgroundImage = `linear-gradient(to right, var(--secondary) 0 ${Math.round(
-                        (computerTurn.health / computerTurn.size) * 100
-                    )}%, var(--light-opaque) ${Math.round(
-                        (computerTurn.health / computerTurn.size) * 100
-                    )}% 100%)`;
-
-                    audio.playExplosion();
-                } else {
-                    playerSquares[
-                        computerTurn.x * 10 + computerTurn.y
-                    ].classList.add('water');
-                    audio.playSplash();
+                    if (computerTurn.gameover) {
+                        document.body.classList.toggle('popup');
+                    }
                 }
+            });
+        }
+    }
 
-                if (computerTurn.gameover) {
-                    document.body.classList.toggle('popup');
-                    winnerName.textContent = computerTurn.attacker;
-                    return;
-                }
+    static async #playTurn(coords, game, audio, attackerFleet, defenderFleet) {
+        const turn = await game.play(coords);
+        defenderFleet.classList.toggle('disabled');
 
-                computerFleet.classList.toggle('disabled');
-                playerFleet.classList.toggle('disabled');
-            }
-        });
+        if (turn.isShip) {
+            audio.playExplosion();
+        } else {
+            audio.playSplash();
+        }
+
+        attackerFleet.classList.toggle('disabled');
+
+        return turn;
     }
 }
 
