@@ -5,6 +5,7 @@ class GameController {
     #DOMContent;
 
     // Player squares on DOM should come here as a matrix on DOMContent object
+    // Player ship's health bar should come on a hash data structure
     constructor(playerOne, playerTwo, DOMContent) {
         this.#players = [playerTwo, playerOne];
         this.#DOMContent = {
@@ -18,6 +19,10 @@ class GameController {
         // This assign makes it easy to change squares on different turns
         playerOne.squares = DOMContent.playerOneSquares;
         playerTwo.squares = DOMContent.playerTwoSquares;
+        playerOne.direction = 'to left';
+        playerTwo.direction = 'to right';
+        playerOne.ships = DOMContent.playerOneShips;
+        playerTwo.ships = DOMContent.playerTwoShips;
     }
 
     get nextPlayer() {
@@ -33,6 +38,15 @@ class GameController {
         // If it's a sunken ship nothing will happen
         if (attack.isShip) {
             defender.squares[attack.x][attack.y].classList.toggle('sunken');
+            defender.ships[
+                attack.target.toLowerCase()
+            ].style.backgroundImage = `linear-gradient(${
+                defender.direction
+            }, var(--secondary) 0 ${Math.round(
+                (attack.health / attack.size) * 100
+            )}%, var(--light-opaque) ${Math.round(
+                (attack.health / attack.size) * 100
+            )}% 100%)`;
         } else if (attack.target === 'Water') {
             defender.squares[attack.x][attack.y].classList.toggle('water');
         }

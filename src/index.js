@@ -55,6 +55,20 @@ const startGame = function initializePagesAndObjects() {
                     : rows[rows.length - 1].push(key)) && rows,
             []
         ),
+        playerOneShips: {
+            destroyer: gameScreen.querySelector('.js-player-one-destroyer'),
+            submarine: gameScreen.querySelector('.js-player-one-submarine'),
+            cruiser: gameScreen.querySelector('.js-player-one-cruiser'),
+            battleship: gameScreen.querySelector('.js-player-one-battleship'),
+            carrier: gameScreen.querySelector('.js-player-one-carrier'),
+        },
+        playerTwoShips: {
+            destroyer: gameScreen.querySelector('.js-player-two-destroyer'),
+            submarine: gameScreen.querySelector('.js-player-two-submarine'),
+            cruiser: gameScreen.querySelector('.js-player-two-cruiser'),
+            battleship: gameScreen.querySelector('.js-player-two-battleship'),
+            carrier: gameScreen.querySelector('.js-player-two-carrier'),
+        },
     };
 
     fleetScreenOne.querySelector('.js-player-name').value = 'PlayerOne';

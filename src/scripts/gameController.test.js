@@ -10,7 +10,11 @@ const mockDOMElement = function DOMElementFactory() {
             ? elementClasses.delete(name)
             : elementClasses.add(name);
 
-    return { textContent: '', classList: { add, remove, contains, toggle } };
+    return {
+        textContent: '',
+        classList: { add, remove, contains, toggle },
+        style: { backgroundImage: '' },
+    };
 };
 
 let player1;
@@ -25,6 +29,8 @@ beforeEach(() => {
         },
         receiveAttack: jest.fn().mockReturnValue({
             target: 'Destroyer',
+            size: 2,
+            health: 1,
             x: 5,
             y: 0,
             isShip: true,
@@ -48,6 +54,8 @@ beforeEach(() => {
             })
             .mockReturnValue({
                 target: 'Carrier',
+                size: 5,
+                health: 4,
                 x: 1,
                 y: 1,
                 isShip: true,
@@ -68,6 +76,20 @@ beforeEach(() => {
         winnerName: mockDOMElement(),
         playerOneSquares: squares1,
         playerTwoSquares: squares2,
+        playerOneShips: {
+            destroyer: mockDOMElement(),
+            submarine: mockDOMElement(),
+            cruiser: mockDOMElement(),
+            battleship: mockDOMElement(),
+            carrier: mockDOMElement(),
+        },
+        playerTwoShips: {
+            destroyer: mockDOMElement(),
+            submarine: mockDOMElement(),
+            cruiser: mockDOMElement(),
+            battleship: mockDOMElement(),
+            carrier: mockDOMElement(),
+        },
     };
 });
 
@@ -98,6 +120,8 @@ test('Returns correct values', async () => {
         attacker: 'SeCoNd_PlAyEr',
         defender: 'Player_one',
         target: 'Destroyer',
+        size: 2,
+        health: 1,
         x: 5,
         y: 0,
         isShip: true,
@@ -109,6 +133,8 @@ test('Returns correct values', async () => {
         attacker: 'Player_one',
         defender: 'SeCoNd_PlAyEr',
         target: 'Carrier',
+        size: 5,
+        health: 4,
         x: 1,
         y: 1,
         isShip: true,
@@ -139,6 +165,9 @@ test('Changes DOM content correctly', async () => {
     expect(DOMContent.winnerName.textContent).toBe('');
     expect(DOMContent.playerOneSquares[5][0].classList.contains('sunken'))
         .toBeTruthy;
+    expect(DOMContent.playerOneShips.destroyer.style.backgroundImage).toBe(
+        'linear-gradient(to left, var(--secondary) 0 50%, var(--light-opaque) 50% 100%)'
+    );
 
     await game.play('anything');
 
@@ -149,4 +178,7 @@ test('Changes DOM content correctly', async () => {
     expect(DOMContent.winnerName.textContent).toBe('Player_one');
     expect(DOMContent.playerTwoSquares[1][1].classList.contains('sunken'))
         .toBeTruthy;
+    expect(DOMContent.playerTwoShips.carrier.style.backgroundImage).toBe(
+        'linear-gradient(to right, var(--secondary) 0 80%, var(--light-opaque) 80% 100%)'
+    );
 });

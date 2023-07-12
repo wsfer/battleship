@@ -169,11 +169,11 @@ class DOMCreator {
             <section class="player-boards-container">
                 <section class="board-container">
                     <section class="fleet-status player-one">
-                        <div class="ship-health destroyer js-player-destroyer"></div>
-                        <div class="ship-health submarine js-player-submarine"></div>
-                        <div class="ship-health cruiser js-player-cruiser"></div>
-                        <div class="ship-health battleship js-player-battleship"></div>
-                        <div class="ship-health carrier js-player-carrier"></div>
+                        <div class="ship-health destroyer js-player-one-destroyer"></div>
+                        <div class="ship-health submarine js-player-one-submarine"></div>
+                        <div class="ship-health cruiser js-player-one-cruiser"></div>
+                        <div class="ship-health battleship js-player-one-battleship"></div>
+                        <div class="ship-health carrier js-player-one-carrier"></div>
                     </section>
                     <div class="fleet-container">
                         <h3 class="board-title"><span class="action-text js-player-one-name"></span> fleet</h3>
