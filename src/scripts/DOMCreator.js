@@ -43,7 +43,6 @@ class DOMCreator {
             <div class="buttons-container">
                 <button class="text-button js-player-vs-computer">Player vs Computer</button>
                 <button class="text-button js-player-vs-player">Player vs Player</button>
-                <button class="text-button js-computer-vs-computer">Computer vs Computer</button>
             </div>
             <section class="popup-box js-sound-box">
                 <p>Allow sound?</p>

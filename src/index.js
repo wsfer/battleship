@@ -84,8 +84,8 @@ const startGame = function initializePagesAndObjects() {
         .addEventListener('click', () => {
             document.querySelector('main').textContent = '';
             document.querySelector('.js-reset-game').style.display = 'block';
-            EventCreator.addFleetScreenEvents(fleetScreenTwo, playerTwoFleet);
-            document.querySelector('main').appendChild(fleetScreenTwo);
+            EventCreator.addFleetScreenEvents(fleetScreenOne, playerOneFleet);
+            document.querySelector('main').appendChild(fleetScreenOne);
         });
 
     fleetScreenOne
@@ -97,23 +97,32 @@ const startGame = function initializePagesAndObjects() {
 
                 playerOneBoard = new Gameboard(playerOneFleet.getFleet());
                 playerOne = new Player(playerName.value, playerOneBoard);
-                game = new GameController(playerOne, playerTwo, DOMContent);
 
                 gameScreen.querySelector('.js-player-name-turn').textContent =
                     playerOne.name;
                 gameScreen.querySelector('.js-player-one-name').textContent =
                     playerOne.name;
-                gameScreen.querySelector('.js-player-two-name').textContent =
-                    playerTwo.name;
 
-                EventCreator.addGameScreenEvents(
-                    gameScreen,
-                    game,
-                    audio,
-                    playerOne,
-                    playerTwo
-                );
-                document.querySelector('main').appendChild(gameScreen);
+                if (playerTwo === null) {
+                    EventCreator.addFleetScreenEvents(
+                        fleetScreenTwo,
+                        playerTwoFleet
+                    );
+                    document.querySelector('main').appendChild(fleetScreenTwo);
+                } else {
+                    game = new GameController(playerOne, playerTwo, DOMContent);
+                    gameScreen.querySelector(
+                        '.js-player-two-name'
+                    ).textContent = playerTwo.name;
+                    EventCreator.addGameScreenEvents(
+                        gameScreen,
+                        game,
+                        audio,
+                        playerOne,
+                        playerTwo
+                    );
+                    document.querySelector('main').appendChild(gameScreen);
+                }
             }
         });
 
@@ -127,14 +136,18 @@ const startGame = function initializePagesAndObjects() {
 
                 playerTwoBoard = new Gameboard(playerTwoFleet.getFleet());
                 playerTwo = new Player(playerName.value, playerTwoBoard);
+                game = new GameController(playerOne, playerTwo, DOMContent);
                 gameScreen.querySelector('.js-player-two-name').textContent =
                     playerTwo.name;
 
-                EventCreator.addFleetScreenEvents(
-                    fleetScreenOne,
-                    playerOneFleet
+                EventCreator.addGameScreenEvents(
+                    gameScreen,
+                    game,
+                    audio,
+                    playerOne,
+                    playerTwo
                 );
-                document.querySelector('main').appendChild(fleetScreenOne);
+                document.querySelector('main').appendChild(gameScreen);
             }
         });
 
