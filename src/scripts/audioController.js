@@ -25,12 +25,14 @@ class AudioController {
 
     async playExplosion() {
         if (!this.#music.muted) {
+            this.#explosion.currentTime = 0;
             this.#explosion.play();
         }
     }
 
     async playSplash() {
         if (!this.#music.muted) {
+            this.#splash.currentTime = 0;
             this.#splash.play();
         }
     }
