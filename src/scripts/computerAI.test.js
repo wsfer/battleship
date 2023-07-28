@@ -1,5 +1,4 @@
 import ComputerAI from './computerAI';
-// By default the tested module has an custom delay of 0~1 seconds which can slow these tests
 
 describe('Not targeting a ship', () => {
     test('Matrix full of values', () => {

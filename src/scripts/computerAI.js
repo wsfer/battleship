@@ -1,5 +1,4 @@
 class ComputerAI {
-    // There's a delay of 1s~2s before a move is returned
     static generateMove(availableCoords, targetingShip) {
         // No ship being targeted: return a random coord
         if (targetingShip === null) {
