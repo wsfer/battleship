@@ -37,7 +37,7 @@ class GameController {
 
         // If it's a sunken ship nothing will happen
         if (attack.isShip) {
-            defender.squares[attack.x][attack.y].classList.toggle('sunken');
+            defender.squares[attack.x][attack.y].classList.add('sunken');
             defender.ships[
                 attack.target.toLowerCase()
             ].style.backgroundImage = `linear-gradient(${
@@ -48,7 +48,7 @@ class GameController {
                 (attack.health / attack.size) * 100
             )}% 100%)`;
         } else if (attack.target === 'Water') {
-            defender.squares[attack.x][attack.y].classList.toggle('water');
+            defender.squares[attack.x][attack.y].classList.add('water');
         }
 
         this.#DOMContent.combatLog.textContent = `${attacker.name} attacked ${defender.name}'s ${attack.target}`;
