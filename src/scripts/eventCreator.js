@@ -133,6 +133,7 @@ class EventCreator {
                     Number(e.target.dataset.y),
                 ];
                 const move = fleetBuilder.move(id, [x, y]);
+
                 if (move.isValid) {
                     e.target.appendChild(ship);
                     if (fleetBuilder.isDone() && playerName.value !== '') {
@@ -146,17 +147,16 @@ class EventCreator {
     static addGameScreenEvents(page, game, audio, playerOne, playerTwo) {
         const playerOneFleet = page.querySelector('.js-player-one-fleet');
         const playerTwoFleet = page.querySelector('.js-player-two-fleet');
-
         playerOneFleet.classList.toggle('disabled');
 
         if (!playerOne.isComputer && !playerTwo.isComputer) {
             // Player vs Player
-            playerTwoFleet.addEventListener('click', async (e) => {
+            playerTwoFleet.addEventListener('click', (e) => {
                 if (
                     e.target.classList.contains('js-square') &&
                     !playerTwoFleet.classList.contains('disabled')
                 ) {
-                    const turn = await this.#playTurn(
+                    const turn = this.#playTurn(
                         [
                             Number(e.target.dataset.x),
                             Number(e.target.dataset.y),
@@ -166,17 +166,18 @@ class EventCreator {
                         playerOneFleet,
                         playerTwoFleet
                     );
+
                     if (turn.gameover) {
                         document.body.classList.toggle('popup');
                     }
                 }
             });
-            playerOneFleet.addEventListener('click', async (e) => {
+            playerOneFleet.addEventListener('click', (e) => {
                 if (
                     e.target.classList.contains('js-square') &&
                     !playerOneFleet.classList.contains('disabled')
                 ) {
-                    const turn = await this.#playTurn(
+                    const turn = this.#playTurn(
                         [
                             Number(e.target.dataset.x),
                             Number(e.target.dataset.y),
@@ -186,6 +187,7 @@ class EventCreator {
                         playerTwoFleet,
                         playerOneFleet
                     );
+
                     if (turn.gameover) {
                         document.body.classList.toggle('popup');
                     }
@@ -198,7 +200,7 @@ class EventCreator {
                     e.target.classList.contains('js-square') &&
                     !playerTwoFleet.classList.contains('disabled')
                 ) {
-                    const playerTurn = await this.#playTurn(
+                    const playerTurn = this.#playTurn(
                         [
                             Number(e.target.dataset.x),
                             Number(e.target.dataset.y),
@@ -214,7 +216,12 @@ class EventCreator {
                         return;
                     }
 
-                    const computerTurn = await this.#playTurn(
+                    // Small delay for computer attack
+                    await new Promise((resolve) => {
+                        setTimeout(resolve, Math.random() * 1000 + 1000);
+                    });
+
+                    const computerTurn = this.#playTurn(
                         null,
                         game,
                         audio,
@@ -230,8 +237,8 @@ class EventCreator {
         }
     }
 
-    static async #playTurn(coords, game, audio, attackerFleet, defenderFleet) {
-        const turn = await game.play(coords);
+    static #playTurn(coords, game, audio, attackerFleet, defenderFleet) {
+        const turn = game.play(coords);
         defenderFleet.classList.toggle('disabled');
 
         if (turn.isShip) {
@@ -241,7 +248,6 @@ class EventCreator {
         }
 
         attackerFleet.classList.toggle('disabled');
-
         return turn;
     }
 }

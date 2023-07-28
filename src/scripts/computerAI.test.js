@@ -2,7 +2,7 @@ import ComputerAI from './computerAI';
 // By default the tested module has an custom delay of 0~1 seconds which can slow these tests
 
 describe('Not targeting a ship', () => {
-    test('Matrix full of values', async () => {
+    test('Matrix full of values', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -10,11 +10,11 @@ describe('Not targeting a ship', () => {
                     .fill()
                     .map((col, y) => [x, y])
             );
-        const move = await ComputerAI.generateMove(coords, null);
+        const move = ComputerAI.generateMove(coords, null);
         expect(move).toHaveLength(2);
     });
 
-    test('Matrix with some null values', async () => {
+    test('Matrix with some null values', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -22,12 +22,12 @@ describe('Not targeting a ship', () => {
                     .fill()
                     .map((col, y) => (y % 2 === 0 ? [x, y] : null))
             );
-        const move = await ComputerAI.generateMove(coords, null);
+        const move = ComputerAI.generateMove(coords, null);
         expect(move).toBeDefined();
         expect(move).toHaveLength(2);
     });
 
-    test('Matrix with some rows full of null values', async () => {
+    test('Matrix with some rows full of null values', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -35,14 +35,14 @@ describe('Not targeting a ship', () => {
                     .fill()
                     .map((col, y) => (x % 2 === 0 ? [x, y] : null))
             );
-        const move = await ComputerAI.generateMove(coords, null);
+        const move = ComputerAI.generateMove(coords, null);
         expect(move).toBeDefined();
         expect(move).toHaveLength(2);
     });
 });
 
 describe('Targeting a ship with one discovered position', () => {
-    test('All adjacent positions are valid', async () => {
+    test('All adjacent positions are valid', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -62,13 +62,13 @@ describe('Targeting a ship with one discovered position', () => {
             [2, 4],
         ];
         for (let i = 0; i < 4; i++) {
-            const move = await ComputerAI.generateMove(coords, ship);
+            const move = ComputerAI.generateMove(coords, ship);
             expect(expectedMoves).toContainEqual(move);
             coords[move[0]][move[1]] = null;
         }
     });
 
-    test('Some adjacent positions are null', async () => {
+    test('Some adjacent positions are null', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -86,13 +86,13 @@ describe('Targeting a ship with one discovered position', () => {
             [2, 4],
         ];
         for (let i = 0; i < 2; i++) {
-            const move = await ComputerAI.generateMove(coords, ship);
+            const move = ComputerAI.generateMove(coords, ship);
             expect(expectedMoves).toContainEqual(move);
             coords[move[0]][move[1]] = null;
         }
     });
 
-    test('Some adjacent positions go off board', async () => {
+    test('Some adjacent positions go off board', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -110,7 +110,7 @@ describe('Targeting a ship with one discovered position', () => {
             [1, 0],
         ];
         for (let i = 0; i < 2; i++) {
-            const move = await ComputerAI.generateMove(coords, ship);
+            const move = ComputerAI.generateMove(coords, ship);
             expect(expectedMoves).toContainEqual(move);
             coords[move[0]][move[1]] = null;
         }
@@ -118,7 +118,7 @@ describe('Targeting a ship with one discovered position', () => {
 });
 
 describe('Ship has direction', () => {
-    test('horizontal with both adjacent positions valid', async () => {
+    test('horizontal with both adjacent positions valid', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -140,13 +140,13 @@ describe('Ship has direction', () => {
             [3, 6],
         ];
         for (let i = 0; i < 2; i++) {
-            const move = await ComputerAI.generateMove(coords, ship);
+            const move = ComputerAI.generateMove(coords, ship);
             expect(expectedMoves).toContainEqual(move);
             coords[move[0]][move[1]] = null;
         }
     });
 
-    test('vertical with both adjacent positions valid', async () => {
+    test('vertical with both adjacent positions valid', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -170,13 +170,13 @@ describe('Ship has direction', () => {
             [7, 5],
         ];
         for (let i = 0; i < 2; i++) {
-            const move = await ComputerAI.generateMove(coords, ship);
+            const move = ComputerAI.generateMove(coords, ship);
             expect(expectedMoves).toContainEqual(move);
             coords[move[0]][move[1]] = null;
         }
     });
 
-    test('horizontal with one adjacent position invalid', async () => {
+    test('horizontal with one adjacent position invalid', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -194,11 +194,11 @@ describe('Ship has direction', () => {
             ],
         };
         const expectedMove = [0, 2];
-        const move = await ComputerAI.generateMove(coords, ship);
+        const move = ComputerAI.generateMove(coords, ship);
         expect(move).toEqual(expectedMove);
     });
 
-    test('vertical with one adjacent position invalid', async () => {
+    test('vertical with one adjacent position invalid', () => {
         const coords = Array(10)
             .fill()
             .map((row, x) =>
@@ -217,12 +217,12 @@ describe('Ship has direction', () => {
             ],
         };
         const expectedMove = [5, 4];
-        const move = await ComputerAI.generateMove(coords, ship);
+        const move = ComputerAI.generateMove(coords, ship);
         expect(move).toEqual(expectedMove);
     });
 });
 
-test('Fully discovered rows around a ship', async () => {
+test('Fully discovered rows around a ship', () => {
     const coords = Array(10)
         .fill()
         .map((row, x) =>
@@ -240,7 +240,7 @@ test('Fully discovered rows around a ship', async () => {
         [7, 3],
     ];
     for (let i = 0; i < 2; i++) {
-        const move = await ComputerAI.generateMove(coords, ship);
+        const move = ComputerAI.generateMove(coords, ship);
         expect(expectedMoves).toContainEqual(move);
         coords[move[0]][move[1]] = null;
     }

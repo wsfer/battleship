@@ -93,18 +93,18 @@ beforeEach(() => {
     };
 });
 
-test('Pass turns', async () => {
+test('Pass turns', () => {
     const game = new GameController(player1, player2, DOMContent);
     expect(game.nextPlayer).toBe(player1);
-    const turn = await game.play([9, 9]);
+    const turn = game.play([9, 9]);
     expect(game.nextPlayer).toBe(player2);
-    const newTurn = await game.play(null);
+    const newTurn = game.play(null);
     expect(game.nextPlayer).toBe(player1);
 });
 
-test('Returns correct values', async () => {
+test('Returns correct values', () => {
     const game = new GameController(player1, player2, DOMContent);
-    const turn = await game.play([8, 1]);
+    const turn = game.play([8, 1]);
     expect(turn).toEqual({
         attacker: 'Player_one',
         defender: 'SeCoNd_PlAyEr',
@@ -115,7 +115,7 @@ test('Returns correct values', async () => {
         gameover: false,
     });
 
-    const newTurn = await game.play(null);
+    const newTurn = game.play(null);
     expect(newTurn).toEqual({
         attacker: 'SeCoNd_PlAyEr',
         defender: 'Player_one',
@@ -128,7 +128,7 @@ test('Returns correct values', async () => {
         gameover: false,
     });
 
-    const lastTurn = await game.play(null);
+    const lastTurn = game.play(null);
     expect(lastTurn).toEqual({
         attacker: 'Player_one',
         defender: 'SeCoNd_PlAyEr',
@@ -142,12 +142,12 @@ test('Returns correct values', async () => {
     });
 });
 
-test('Changes DOM content correctly', async () => {
+test('Changes DOM content correctly', () => {
     const game = new GameController(player1, player2, DOMContent);
 
     expect(DOMContent.nextPlayer.textContent).toBe('Player_one');
 
-    await game.play([8, 1]);
+    game.play([8, 1]);
     expect(DOMContent.combatLog.textContent).toBe(
         "Player_one attacked SeCoNd_PlAyEr's Water"
     );
@@ -156,7 +156,7 @@ test('Changes DOM content correctly', async () => {
     expect(DOMContent.playerTwoSquares[8][1].classList.contains('water'))
         .toBeTruthy;
 
-    await game.play(null);
+    game.play(null);
 
     expect(DOMContent.combatLog.textContent).toBe(
         "SeCoNd_PlAyEr attacked Player_one's Destroyer"
@@ -169,7 +169,7 @@ test('Changes DOM content correctly', async () => {
         'linear-gradient(to left, var(--secondary) 0 50%, var(--light-opaque) 50% 100%)'
     );
 
-    await game.play('anything');
+    game.play('anything');
 
     expect(DOMContent.combatLog.textContent).toBe(
         "Player_one attacked SeCoNd_PlAyEr's Carrier"

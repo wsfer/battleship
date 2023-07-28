@@ -5,7 +5,7 @@ test('Computer is a computer', () => {
     expect(computer.isComputer).toBeTruthy;
 });
 
-test('Computer attacks another player', async () => {
+test('Computer attacks another player', () => {
     const mockPlayer = {
         receiveAttack: jest.fn().mockReturnValue({ isShip: false, x: 1, y: 1 }),
     };
@@ -13,11 +13,11 @@ test('Computer attacks another player', async () => {
         generateMove: jest.fn().mockReturnValue([5, 4]),
     };
     const computer = new ComputerPlayer('computer', null, mockAI);
-    await computer.attack(mockPlayer);
+    computer.attack(mockPlayer);
     expect(mockPlayer.receiveAttack).toHaveBeenCalledWith([5, 4]);
 });
 
-test('Computer sunken player ship and keep playing', async () => {
+test('Computer sunken player ship and keep playing', () => {
     const mockPlayer = {
         receiveAttack: jest
             .fn()
@@ -33,8 +33,8 @@ test('Computer sunken player ship and keep playing', async () => {
             .mockReturnValue([5, 4]),
     };
     const computer = new ComputerPlayer('computer', null, mockAI);
-    await computer.attack(mockPlayer);
-    await computer.attack(mockPlayer);
-    await computer.attack(mockPlayer);
+    computer.attack(mockPlayer);
+    computer.attack(mockPlayer);
+    computer.attack(mockPlayer);
     expect(mockPlayer.receiveAttack).toHaveBeenLastCalledWith([5, 4]);
 });

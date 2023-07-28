@@ -21,8 +21,8 @@ class ComputerPlayer extends Player {
         this.isComputer = true;
     }
 
-    async attack(player) {
-        const coords = await this.#computerAI.generateMove(
+    attack(player) {
+        const coords = this.#computerAI.generateMove(
             this.#coords,
             this.#targetShip
         );
